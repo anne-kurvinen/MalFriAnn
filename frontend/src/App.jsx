@@ -1,15 +1,12 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+/* import { useEffect } from 'react'
+import './App.css' */
 import Carousel from './components/carousel/carousel.jsx';
+import NavbarComponent from './components/navbar/NavbarComponent.jsx'
 
 
 function App() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
+/* 
   useEffect(() => {
     // Kommentera bort fetch-anropet tills backend är på plats
     /*
@@ -17,10 +14,8 @@ function App() {
       .then((response) => response.json())
       .then((result) => {
         alert(`Hello ${result.hello}!`)
-      });
-    */
-    console.log("Simulerad backend-svar: Hello World");
-  }, []);
+      })
+  }, []) */
 
   return (
     <>
@@ -46,13 +41,13 @@ function App() {
         </div>
       </nav>
         <div>
+    <>
+          <NavbarComponent />
+
           <Carousel />
-        </div>
-            <div>
-        <h1>VÄLKOMMEN TILL VÅRT TRÄNINGSCENTER!</h1>
-        <p>This is the content below the sticky navbar.</p>
-      </div>
-      </>
+       </>
+
+    
   );
 }
 
