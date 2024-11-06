@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Registration-style.css';
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const RegistrationPage = () => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +28,7 @@ const RegistrationPage = () => {
       return false;
     }
 
-    // Lägg till validering här för e-post och personnummer
+    // Lägg till validering här för e-post och personnummer om det behövs
 
     return true;
   };
@@ -38,34 +40,36 @@ const RegistrationPage = () => {
 
     setLoading(true);
     setError('');
+    setSuccess(false);
 
-    // Skicka formulärdata till din backend
-    try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Registreringen misslyckades');
-      }
-
-      const data = await response.json();
-      console.log('Registrering lyckades:', data);
-    } catch (error) {
-      setError('Ett fel inträffade vid registreringen.');
-    } finally {
+    // Simulera registrering utan backend
+    setTimeout(() => {
+      console.log('Simulerad registrering med data:', formData);
       setLoading(false);
-    }
+      setSuccess(true); // Visa bekräftelsemeddelandet
+    }, 1000);
+  };
+
+  // Funktion för att stänga popupen
+  const closePopup = () => {
+    setSuccess(false); // Stänger popupen när användaren klickar på "OK"
   };
 
   return (
     <div className="registration-container">
       <h1>Registrera konto</h1>
       {error && <div className="error-message">{error}</div>}
+
+      {/* Popup när registreringen lyckas */}
+      {success && (
+        <div className="popup">
+          <div className="popup-content">
+            <p className="popup-message">Registrering lyckades!</p>
+            <button className="close-popup" onClick={closePopup}>OK</button>
+          </div>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <div>
           <label>Förnamn:</label>

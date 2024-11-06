@@ -1,0 +1,148 @@
+/* Registreringssida grundläggande stil */
+
+body {
+  background-color: #fff; /* Vit bakgrund för hela sidan */
+  font-family: Arial, sans-serif;
+}
+
+.registration-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Formulärstil */
+form {
+  background-color: #e5e8ee;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+form label {
+  display: block;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+/* Inmatningsfält */
+form input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  color: #333;
+  background-color: #fff; /* Säkerställer vit bakgrund för inmatningsfälten */
+  box-sizing: border-box;
+}
+
+/* Fokuserad inmatning */
+form input:focus {
+  border-color: #4d90fe;
+  outline: none;
+  box-shadow: 0 0 8px rgba(77, 144, 254, 0.4);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4d90fe;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #3578e5;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Popup-stil */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Se till att den är över andra element */
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 80%;
+  max-width: 400px;
+}
+
+.popup-message {
+  color: green;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.close-popup {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.close-popup:hover {
+  background-color: darkgreen;
+}
+
+/* Responsiv design */
+@media (max-width: 600px) {
+  .registration-container {
+    padding: 10px;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
