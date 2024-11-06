@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import Carousel from './components/carousel/carousel.jsx';
 
 
 function App() {
@@ -40,8 +41,9 @@ function App() {
           </ul>
         </div>
       </nav>
-
-            {/* Resten av din app-innehåll här */}
+        <div>
+          <Carousel />
+        </div>
             <div>
         <h1>VÄLKOMMEN TILL VÅRT TRÄNINGSCENTER!</h1>
         <p>This is the content below the sticky navbar.</p>
