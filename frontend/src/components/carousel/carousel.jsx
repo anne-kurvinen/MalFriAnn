@@ -15,7 +15,7 @@ function Carousel() {
         }, 5000); 
 
         return () => clearInterval(interval);
-    }, []);
+    }, [images.length]);
 
     
     const slideStyle = {
