@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import './App.css'; 
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Registration from './Pages/Registration';
+import { useState, useEffect } from 'react'
+import './App.css'
+import Carousel from './components/carousel/carousel.jsx';
+
 
 function App() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <>
       <nav className="navbar">
         <div className="navbar-container">
           <ul className="navbar-list">
@@ -45,22 +45,14 @@ function App() {
           </ul>
         </div>
       </nav>
-
-      {/* Routes definierar vad som ska visas på respektive sida */}
-      <Routes>
-        <Route 
-          path="/" 
-          element={
+        <div>
+          <Carousel />
+        </div>
             <div>
-              <h1>VÄLKOMMEN TILL VÅRT TRÄNINGSCENTER!</h1>
-              <p>This is the content below the sticky navbar.</p>
-            </div>
-          } 
-        />
-        <Route path="/registrering" element={<Registration />} />
-        {/* Lägg till fler rutter här */}
-      </Routes>
-    </Router>
+        <h1>VÄLKOMMEN TILL VÅRT TRÄNINGSCENTER!</h1>
+        <p>This is the content below the sticky navbar.</p>
+      </div>
+      </>
   );
 }
 

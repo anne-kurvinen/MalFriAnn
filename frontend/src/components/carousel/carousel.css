@@ -1,0 +1,31 @@
+.carousel-container {
+    width: 100%; 
+    height: 130vh; 
+    overflow: hidden;  
+    position: relative;  
+    display: flex;  
+    justify-content: center; 
+    align-items: center;  
+}
+
+.images-container {
+    display: flex; 
+    width: 300%;  
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.image {
+    flex: 0 0 100%;
+    height: auto;  
+    display: flex; 
+    justify-content: center; 
+    align-items: center;  
+}
+
+.image img {
+    width: 100%;               
+    height: 100%;
+    object-fit: cover; 
+    display: block; 
+}
