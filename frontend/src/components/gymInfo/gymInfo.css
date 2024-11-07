@@ -1,0 +1,17 @@
+.link {
+    color: rgb(222, 222, 22);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .link:hover {
+    color: rgb(222, 222, 22);
+    text-decoration: underline;
+
+  }
+
+  * {
+    color: white;
+  }
+  
+  

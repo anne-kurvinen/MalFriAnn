@@ -4,8 +4,7 @@ import './App.css'
 import './App.css'
 import Carousel from './components/carousel/carousel.jsx';
 import NavbarComponent from './components/navbar/NavbarComponent.jsx'
-
-
+import GymInfo from './components/gymInfo/gymInfo.jsx';
 function App() {
 
 /* 
@@ -24,6 +23,7 @@ function App() {
     <>
       <NavbarComponent />
       <Carousel />
+      <GymInfo />
     </>
   );
 }
