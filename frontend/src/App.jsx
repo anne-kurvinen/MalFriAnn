@@ -1,5 +1,7 @@
 /* import { useEffect } from 'react' */
 import './App.css'
+/* import { useEffect } from 'react' */
+import './App.css'
 import Carousel from './components/carousel/carousel.jsx';
 import NavbarComponent from './components/navbar/NavbarComponent.jsx'
 
