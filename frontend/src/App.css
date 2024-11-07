@@ -1,3 +1,8 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 
 /* Sticky Navbar */
 .navbar {
@@ -77,10 +82,3 @@
   color: seashell;
   text-decoration: none;
 }
-
-.dropdown-menu li a:hover {
-  background-color: seashell;
-  color: #090f53;
-}
-
-

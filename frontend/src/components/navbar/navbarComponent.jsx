@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './NavbarComponent.css';
 
+
 function NavbarComponent() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -18,7 +19,7 @@ function NavbarComponent() {
             <li><a href="/inställningar">Inställningar</a></li>  
             <li><a href="/inlog">Logga In</a></li>       
             <li className="dropdown">
-              <button className="dropdown-btn" onClick={toggleDropdown}>
+              <button className="dropdown-btn" onMouseOver={toggleDropdown}>
                 Bli Medlem
               </button>
               {dropdownOpen && (
