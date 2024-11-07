@@ -1,13 +1,13 @@
-import { useState } from 'react';
+/* import { useState } from 'react'; */
 import './NavbarComponent.css';
 
 
 function NavbarComponent() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+/*   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
-  };
+  }; */
 
   return (
     <div>
@@ -17,17 +17,13 @@ function NavbarComponent() {
             <li><a href="/">Home</a></li>
             <li><a href="/om-oss">Öppettider</a></li>
             <li><a href="/inställningar">Inställningar</a></li>  
-            <li><a href="/inlog">Logga In</a></li>       
+            <li><a href="/inlogg">Logga In</a></li>       
             <li className="dropdown">
-              <button className="dropdown-btn" onMouseOver={toggleDropdown}>
-                Bli Medlem
-              </button>
-              {dropdownOpen && (
+            <button className="dropdown-btn">Bli Medlem</button>
                 <ul className="dropdown-menu">
                   <li><a href="/registrering">Registrering</a></li>
                   <li><a href="/info">Info - Medlemskap</a></li>
                 </ul>
-              )}
             </li>
           </ul>
         </div>
