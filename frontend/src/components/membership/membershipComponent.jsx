@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+// Ditt medlemskapsalternativ
 const ChooseMemberships = [
   {
     id: 1,
@@ -21,15 +22,22 @@ const ChooseMemberships = [
   },
 ];
 
-const MembershipOptions = () => {
-  const handleSelect = (membership) => {
-    alert(`You selected the ${membership.name} membership!`);
-    // Ska lägga till funktionalitet för att hantera medlemskapsval via backend här
+const MembershipComponent = ({ onSelectMembership }) => {
+  const [selectedMembership, setSelectedMembership] = useState(null);
+
+  const handleMembershipSelect = (membership) => {
+    setSelectedMembership(membership);
+    onSelectMembership(membership); // Skickar tillbaka den valda medlemskap till föräldern
   };
 
   return (
     <div>
       <h2>Select a Membership</h2>
+      {selectedMembership && (
+        <p>
+          Du har valt: <strong>{selectedMembership.name}</strong> - {selectedMembership.price}
+        </p>
+      )}
       <div style={{ display: 'flex', gap: '20px' }}>
         {ChooseMemberships.map((membership) => (
           <div key={membership.id} style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px' }}>
@@ -40,7 +48,7 @@ const MembershipOptions = () => {
                 <li key={index}>{benefit}</li>
               ))}
             </ul>
-            <button onClick={() => handleSelect(membership)}>Choose {membership.name}</button>
+            <button onClick={() => handleMembershipSelect(membership)}>Choose {membership.name}</button>
           </div>
         ))}
       </div>
@@ -48,4 +56,4 @@ const MembershipOptions = () => {
   );
 };
 
-export default MembershipOptions;
+export default MembershipComponent;
