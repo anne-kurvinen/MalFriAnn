@@ -14,19 +14,28 @@ const RegistrationPage = () => {
     confirmPassword: '',
   });
 
-  const [selectedMembership, setSelectedMembership] = useState(null); // Lägg till state för att lagra det valda medlemskapet
+  const [selectedMembership, setSelectedMembership] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleTermsChange = (e) => {
+    setAcceptedTerms(e.target.checked);
+  };
+
   const validateForm = () => {
     if (formData.password !== formData.confirmPassword) {
       setError("Lösenorden matchar inte.");
+      return false;
+    }
+    if (!acceptedTerms) {
+      setError("Du måste godkänna användarvillkoren");
       return false;
     }
     return true;
@@ -64,7 +73,6 @@ const RegistrationPage = () => {
         </div>
       )}
 
-      {/* Visa det valda medlemskapet */}
       {selectedMembership && (
         <div>
           <p>
@@ -73,7 +81,6 @@ const RegistrationPage = () => {
         </div>
       )}
 
-      {/* MembershipComponent används här */}
       <MembershipComponent onSelectMembership={setSelectedMembership} />
 
       <form onSubmit={handleSubmit}>
@@ -157,6 +164,21 @@ const RegistrationPage = () => {
             required
           />
         </div>
+        
+        {/* Terms and Conditions Checkbox */}
+        <div className="terms-container">
+          <input
+            type="checkbox"
+            id="terms"
+            checked={acceptedTerms}
+            onChange={handleTermsChange}
+            required
+          />
+          <label htmlFor="terms">
+            Jag godkänner <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">användarvillkoren</a>
+          </label>
+        </div>
+
         <button type="submit" disabled={loading}>
           {loading ? 'Registrerar...' : 'Registrera konto'}
         </button>
