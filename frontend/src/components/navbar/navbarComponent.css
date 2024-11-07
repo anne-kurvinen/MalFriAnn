@@ -5,16 +5,16 @@
   
   }
   .active {
-    background-color: #04AA6D;
-    color: white;
+    background-color: rgba(6, 6, 6, 0.666);
+    color: rgb(222, 222, 22);
   }
 
   .navbar {
     display: block;
-    margin: 15px;
+   /*  margin: 15px; */
     top: 0;
-    background-color: hsl(216, 77%, 56%);
-    padding: 10px 10px;
+    background-color: rgba(6, 6, 6, 0.666);
+   /*  padding: 10px 10px; */
     z-index: 1000;
     width: 100%;
     overflow: auto;
@@ -34,14 +34,15 @@
   }
   
   .navbar-list a {
-    color: seashell;
+    color: rgb(222, 222, 22);
     text-decoration: none;
     font-size: 16px;
     
   }
   
   .navbar-list a:hover {
-    color: #090f53;
+    color: rgb(222, 222, 22);
+    text-decoration: underline;
   }
 
   .dropdown {
@@ -53,14 +54,15 @@
     display: flex;
     padding: 10px;
     justify-content: space-around;
-    background-color: hwb(259 3% 49%);
-    color: seashell;
+    background-color: rgb(222, 222, 22);
+    color: rgba(6, 6, 6, 0.666);
     border: none;
     font-size: 16px;
   }
   
   .dropdown-btn:hover {
-    background-color: #3029e8;
+    background-color: rgba(6, 6, 6, 0.666);
+    color: rgb(222, 222, 22);
   }
   
   .dropdown-menu {
@@ -68,29 +70,33 @@
     display: none;
     top: 100%;
     left: 0;
-    background-color: rgb(49, 89, 182);
+    background-color:rgb(222, 222, 22);
+    color: rgba(6, 6, 6, 0.666);
     min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(41, 1, 114, 0.2);
+    box-shadow: 0px 8px 16px rgb(222, 222, 22);
     z-index: 500;
     overflow: auto;
   }
   
   .dropdown-menu a {
-    color: seashell;
+    color: rgb(222, 222, 22);
     text-decoration: none;
-    padding: 8px 8px;
+    padding: 2px;
     text-align: left;
-    margin-left: 2;
-    display: block;
+    margin-left: 10px;
+    display: inline;
   }
   
   .dropdown-menu a:hover {
-    background-color: seashell;
-    color: rgb(20, 11, 86);
+    color: rgba(6, 6, 6, 0.666);
+    background-color: rgb(222, 222, 22);
     display: block;
+    top: auto;
   }
+
   .dropdown:hover .dropdown-menu {
     display: block;
+    top: auto;
   }
 
   /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
