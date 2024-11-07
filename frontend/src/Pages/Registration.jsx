@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import MembershipComponent from './membershipComponent';
 import './Registration-style.css';
 
 const RegistrationPage = () => {
@@ -13,6 +14,7 @@ const RegistrationPage = () => {
     confirmPassword: '',
   });
 
+  const [selectedMembership, setSelectedMembership] = useState(null); // Lägg till state för att lagra det valda medlemskapet
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -27,32 +29,25 @@ const RegistrationPage = () => {
       setError("Lösenorden matchar inte.");
       return false;
     }
-
-    // Lägg till validering här för e-post och personnummer om det behövs
-
     return true;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
-
     setLoading(true);
     setError('');
     setSuccess(false);
 
-    // Simulera registrering utan backend
     setTimeout(() => {
-      console.log('Simulerad registrering med data:', formData);
+      console.log('Simulerad registrering med data:', formData, 'Medlemskap:', selectedMembership);
       setLoading(false);
-      setSuccess(true); // Visa bekräftelsemeddelandet
+      setSuccess(true);
     }, 1000);
   };
 
-  // Funktion för att stänga popupen
   const closePopup = () => {
-    setSuccess(false); // Stänger popupen när användaren klickar på "OK"
+    setSuccess(false);
   };
 
   return (
@@ -60,7 +55,6 @@ const RegistrationPage = () => {
       <h1>Registrera konto</h1>
       {error && <div className="error-message">{error}</div>}
 
-      {/* Popup när registreringen lyckas */}
       {success && (
         <div className="popup">
           <div className="popup-content">
@@ -69,6 +63,18 @@ const RegistrationPage = () => {
           </div>
         </div>
       )}
+
+      {/* Visa det valda medlemskapet */}
+      {selectedMembership && (
+        <div>
+          <p>
+            Du har valt: <strong>{selectedMembership.name}</strong> - {selectedMembership.price}
+          </p>
+        </div>
+      )}
+
+      {/* MembershipComponent används här */}
+      <MembershipComponent onSelectMembership={setSelectedMembership} />
 
       <form onSubmit={handleSubmit}>
         <div>
