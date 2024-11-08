@@ -1,5 +1,3 @@
-/* Registreringssida grundläggande stil */
-
 body {
   background-color: black;
   font-family: Arial, sans-serif;
@@ -13,6 +11,11 @@ body {
   min-height: 100vh;
   padding: 20px;
 }
+
+.selected-membership-container {
+  padding: 25px;
+}
+
 
 h1 {
   color: #333;
@@ -30,6 +33,10 @@ h1 {
 
 h2 {
   color:rgb(222, 222, 22);
+}
+
+.personuppgifter-heading {
+margin-top: 40px;
 }
 
 /* Formulärstil */

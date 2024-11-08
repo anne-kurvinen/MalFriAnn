@@ -6,7 +6,7 @@ const ChooseMemberships = [
     id: 1,
     name: 'Basic',
     price: '199 SEK/month',
-    benefits: ['Tillgång till gym', '1 gästpass per månad'],
+    benefits: ['Tillgång till gym', '1 gästpass per månad', 'Möjlighet att köpa till klasser'],
   },
   {
     id: 2,
@@ -22,24 +22,21 @@ const ChooseMemberships = [
   },
 ];
 
-//Funktion för att välja medlemskap 
+// Funktion för att välja medlemskap 
 const MembershipComponent = ({ onSelectMembership }) => {
   const [selectedMembership, setSelectedMembership] = useState(null);
 
   const handleMembershipSelect = (membership) => {
     setSelectedMembership(membership);
-    onSelectMembership(membership); // Skickar tillbaka den valda medlemskap till föräldern
+    if (onSelectMembership) {
+      onSelectMembership(membership); // Skickar tillbaka den valda medlemskap till föräldern
+    }
   };
 
   return (
-    <div className="membership-container">
-      <h2>Välj medlemskap</h2>
-      {selectedMembership && (
-        <p>
-          Du har valt: <strong>{selectedMembership.name}</strong> - {selectedMembership.price}
-        </p>
-      )}
-      <div className="membership-options">
+    <div>
+      <h2 style={{ marginBottom: '20px' }}>Välj ett medlemskap:</h2>
+      <div style={{ display: 'flex', gap: '20px' }}>
         {ChooseMemberships.map((membership) => (
           <div key={membership.id} style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px' }}>
             <h3>{membership.name}</h3>
@@ -49,9 +46,7 @@ const MembershipComponent = ({ onSelectMembership }) => {
                 <li key={index}>{benefit}</li>
               ))}
             </ul>
-            <button className="membership-button" onClick={() => handleMembershipSelect(membership)}>
-              Välj {membership.name}
-            </button>
+            <button onClick={() => handleMembershipSelect(membership)}>Välj {membership.name}</button>
           </div>
         ))}
       </div>

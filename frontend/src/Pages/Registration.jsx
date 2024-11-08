@@ -73,17 +73,17 @@ const RegistrationPage = () => {
         </div>
       )}
 
-      {selectedMembership && (
-        <div>
-          <p>
-            Du har valt: <strong>{selectedMembership.name}</strong> - {selectedMembership.price}
-          </p>
-        </div>
-      )}
+<MembershipComponent onSelectMembership={setSelectedMembership} />
 
-      <MembershipComponent onSelectMembership={setSelectedMembership} />
+{selectedMembership && (
+  <div className="selected-membership-container">
+    <p>
+      Du har valt: <strong>{selectedMembership.name}</strong> - <span className="price">{selectedMembership.price}</span>
+    </p>
+  </div>
+)}
 
-      <h2>Skriv in dina personuppgifter</h2>
+<h2 className="personuppgifter-heading">Skriv in dina personuppgifter</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
