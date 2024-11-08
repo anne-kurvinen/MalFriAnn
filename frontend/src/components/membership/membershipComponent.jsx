@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import './MembershipComponent.css';
+import { useState } from 'react';
 
 // Ditt medlemskapsalternativ
 const ChooseMemberships = [

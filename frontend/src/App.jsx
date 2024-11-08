@@ -1,13 +1,13 @@
-/* import { useEffect } from 'react' */
+
 import './App.css'
 import NavbarComponent from './components/navbar/NavbarComponent.jsx'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Registration from "./pages/Registration";
 import Home from "./pages/Home";
 import OmOss from "./pages/OmOss";
-/* import Installningar from "./pages/Installningar"; */
-/* import Inlogg from "./pages/Inlogg"; */
-/* import Info from "./pages/Info"; */
+import Inställningar from "./pages/Inställningar";
+import LoggaIn from "./pages/LoggaIn";
+import GymInfo from './components/gymInfo/gymInfo.jsx';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import StartPage from './pages/StartPage.jsx';
 
@@ -18,11 +18,11 @@ function App() {
       <Routes>
       <Route path="/" element={<StartPage />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/om-oss" element={<OmOss />} />
-       {/*  <Route path="/installningar" element={<Installningar />} /> */}
-     {/*    <Route path="/inlogg" element={<Inlogg />} /> */}
-       <Route path="/registration" element={<Registration />} />
-        {/* <Route path="/info" element={<Info />} /> */}
+        <Route path="/about" element={<OmOss />} />
+        <Route path="/settings" element={<Inställningar />} />
+        <Route path="/login" element={<LoggaIn />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/gyminfo" element={<GymInfo />} />
       </Routes>
     </Router>
   );
