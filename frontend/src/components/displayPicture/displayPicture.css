@@ -1,0 +1,45 @@
+.display-picture-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 50px;
+    max-width: 50%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  .display-picture-container .image {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .display-picture-container .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.3);
+    transition: filter 0.5s ease;
+    border-radius: 100px;
+  }
+  
+  .display-picture-container .image:hover img {
+    filter: brightness(.7); 
+  }
+  
+  .overlay-text {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    font-size: 4rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.823);
+    padding: 5px 8px;
+    pointer-events: none; 
+    z-index: 10; 
+    text-align: center; 
+  }
+  

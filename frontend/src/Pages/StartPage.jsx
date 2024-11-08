@@ -1,4 +1,5 @@
 import Carousel from "../components/carousel/carousel"
+import DisplayPicture from "../components/displayPicture/displayPicture"
 import GymInfo from "../components/gymInfo/gymInfo"
 
 function StartPage() {
@@ -6,6 +7,7 @@ function StartPage() {
     <div>
         <Carousel />
         <GymInfo />
+        <DisplayPicture />
 
 
     </div>

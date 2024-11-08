@@ -10,6 +10,7 @@ import OmOss from "./pages/OmOss";
 /* import Info from "./pages/Info"; */
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import StartPage from './pages/StartPage.jsx';
+import Footer from './components/footer/footer.jsx';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
        {/*  <Route path="/registration" element={<Registration />} /> */}
         {/* <Route path="/info" element={<Info />} /> */}
       </Routes>
+      <Footer />
     </Router>
   );
 }
