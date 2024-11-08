@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MembershipComponent from './membershipComponent';
+import MembershipComponent  from '../components/membership/membershipComponent.jsx';
 import './Registration-style.css';
 
 const RegistrationPage = () => {
