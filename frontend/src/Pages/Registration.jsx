@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MembershipComponent from './membershipComponent';
+import MembershipComponent  from '../components/membership/membershipComponent.jsx';
 import './Registration-style.css';
 
 const RegistrationPage = () => {
@@ -61,7 +61,7 @@ const RegistrationPage = () => {
 
   return (
     <div className="registration-container">
-      <h1>Registrera konto</h1>
+      <h1>Registrering av konto</h1>
       {error && <div className="error-message">{error}</div>}
 
       {success && (
@@ -73,15 +73,17 @@ const RegistrationPage = () => {
         </div>
       )}
 
-      {selectedMembership && (
-        <div>
-          <p>
-            Du har valt: <strong>{selectedMembership.name}</strong> - {selectedMembership.price}
-          </p>
-        </div>
-      )}
+<MembershipComponent onSelectMembership={setSelectedMembership} />
 
-      <MembershipComponent onSelectMembership={setSelectedMembership} />
+{selectedMembership && (
+  <div className="selected-membership-container">
+    <p>
+      Du har valt: <strong>{selectedMembership.name}</strong> - <span className="price">{selectedMembership.price}</span>
+    </p>
+  </div>
+)}
+
+<h2 className="personuppgifter-heading">Skriv in dina personuppgifter</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -167,6 +169,7 @@ const RegistrationPage = () => {
         
         {/* Terms and Conditions Checkbox */}
         <div className="terms-container">
+        <label htmlFor="terms">
           <input
             type="checkbox"
             id="terms"
@@ -174,8 +177,7 @@ const RegistrationPage = () => {
             onChange={handleTermsChange}
             required
           />
-          <label htmlFor="terms">
-            Jag godkänner <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">användarvillkoren</a>
+            Jag godkänner <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">medlemsvillkoren</a>
           </label>
         </div>
 

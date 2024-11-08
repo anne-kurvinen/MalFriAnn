@@ -1,7 +1,5 @@
-/* Registreringssida grundläggande stil */
-
 body {
-  background-color: #fff; /* Vit bakgrund för hela sidan */
+  background-color: black;
   font-family: Arial, sans-serif;
 }
 
@@ -13,6 +11,11 @@ body {
   min-height: 100vh;
   padding: 20px;
 }
+
+.selected-membership-container {
+  padding: 25px;
+}
+
 
 h1 {
   color: #333;
@@ -28,15 +31,24 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  color:rgb(222, 222, 22);
+}
+
+.personuppgifter-heading {
+margin-top: 40px;
+}
+
 /* Formulärstil */
 form {
-  background-color: #e5e8ee;
+  background-color: black;
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 4px 16px rgb(222, 222, 22);
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
+  margin-top: 25px;
 }
 
 form div {
@@ -46,7 +58,7 @@ form div {
 form label {
   display: block;
   font-weight: 600;
-  color: #444;
+  color: rgb(222, 222, 22);
   margin-bottom: 5px;
 }
 
@@ -57,8 +69,8 @@ form input {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 1rem;
-  color: #333;
-  background-color: #fff; /* Säkerställer vit bakgrund för inmatningsfälten */
+  color: white;
+  background-color: #0e0e0e; 
   box-sizing: border-box;
 }
 
@@ -66,14 +78,18 @@ form input {
 form input:focus {
   border-color: #4d90fe;
   outline: none;
-  box-shadow: 0 0 8px rgba(77, 144, 254, 0.4);
+}
+
+terms-container label {
+display: inline-flex;
+align-items: center;
 }
 
 button {
   width: 100%;
   padding: 12px;
-  background-color: #4d90fe;
-  color: white;
+  background-color: rgb(222, 222, 22);
+  color: black;
   border-radius: 6px;
   border: none;
   font-size: 1.1rem;
@@ -82,7 +98,7 @@ button {
 }
 
 button:hover {
-  background-color: #3578e5;
+  box-shadow: 2px 4px 8px rgb(222, 222, 22);
 }
 
 button:disabled {

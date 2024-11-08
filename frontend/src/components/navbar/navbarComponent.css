@@ -2,102 +2,101 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
-
 }
 .active {
   background-color: rgba(6, 6, 6, 0.666);
   color: rgb(222, 222, 22);
 }
 
-.navbar {
-  display: block;
- /*  margin: 15px; */
-  top: 0;
-  background-color: rgba(6, 6, 6, 0.666);
- /*  padding: 10px 10px; */
-  z-index: 1000;
-  width: 100%;
-  overflow: auto;
-}
-
-.navbar-container {
-  display: block;
-  max-width: 100%;
-  margin: auto;
-  padding: 10px; 
-}
-
-.navbar-list {
-  display: flex;
-  padding: 10px;
-  justify-content: space-around;
-}
-
-.navbar-list a {
-  color: rgb(222, 222, 22);
-  text-decoration: none;
-  font-size: 16px;
+  .navbar {
+    display: block;
+   /*  margin: 15px; */
+    top: 0;
+    background-color: rgba(6, 6, 6, 0.666);
+   /*  padding: 10px 10px; */
+    z-index: 1000;
+    width: 100%;
+    overflow: auto;
+  }
   
-}
+  .navbar-container {
+    display: block;
+    max-width: 100%;
+    margin: auto;
+    padding: 10px; 
+  }
+  
+  .navbar-list {
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+  }
+  
+  .navbar-list a {
+    color: rgb(222, 222, 22);
+    text-decoration: none;
+    font-size: 16px;
+    
+  }
+  
+  .navbar-list a:hover {
+    color: rgb(222, 222, 22);
+    text-decoration: underline;
+  }
 
-.navbar-list a:hover {
-  color: rgb(222, 222, 22);
-  text-decoration: underline;
-}
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-btn {
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+    background-color: rgb(222, 222, 22);
+    color: rgba(6, 6, 6, 0.666);
+    border: none;
+    font-size: 16px;
+  }
+  
+  .dropdown-btn:hover {
+    background-color: rgba(6, 6, 6, 0.666);
+    color: rgb(222, 222, 22);
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    display: none;
+    top: 100%;
+    left: 0;
+    background-color:rgb(222, 222, 22);
+    color: rgba(6, 6, 6, 0.666);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgb(222, 222, 22);
+    z-index: 500;
+    overflow: auto;
+  }
+  
+  .dropdown-menu a {
+    color: rgb(222, 222, 22);
+    text-decoration: none;
+    padding: 2px;
+    text-align: left;
+    margin-left: 10px;
+    display: inline;
+  }
+  
+  .dropdown-menu a:hover {
+    color: rgba(6, 6, 6, 0.666);
+    background-color: rgb(222, 222, 22);
+    display: block;
+    top: auto;
+  }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-btn {
-  display: flex;
-  padding: 10px;
-  justify-content: space-around;
-  background-color: rgb(222, 222, 22);
-  color: rgba(6, 6, 6, 0.666);
-  border: none;
-  font-size: 16px;
-}
-
-.dropdown-btn:hover {
-  background-color: rgba(6, 6, 6, 0.666);
-  color: rgb(222, 222, 22);
-}
-
-.dropdown-menu {
-  position: absolute;
-  display: none;
-  top: 100%;
-  left: 0;
-  background-color:rgb(222, 222, 22);
-  color: rgba(6, 6, 6, 0.666);
-  min-width: 160px;
-  box-shadow: 0px 8px 16px rgb(222, 222, 22);
-  z-index: 500;
-  overflow: auto;
-}
-
-.dropdown-menu a {
-  color: rgb(222, 222, 22);
-  text-decoration: none;
-  padding: 2px;
-  text-align: left;
-  margin-left: 10px;
-  display: inline;
-}
-
-.dropdown-menu a:hover {
-  color: rgba(6, 6, 6, 0.666);
-  background-color: rgb(222, 222, 22);
-  display: block;
-  top: auto;
-}
-
-.dropdown:hover .dropdown-menu {
-  display: block;
-  top: auto;
-}
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    top: auto;
+  }
 
 /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
 @media screen and (max-width: 500px) {
