@@ -2,7 +2,7 @@
 import './App.css'
 import NavbarComponent from './components/navbar/NavbarComponent.jsx'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-/* import Registration from "./pages/Registration"; */
+import Registration from "./pages/Registration";
 import Home from "./pages/Home";
 import OmOss from "./pages/OmOss";
 /* import Installningar from "./pages/Installningar"; */
@@ -21,7 +21,7 @@ function App() {
         <Route path="/om-oss" element={<OmOss />} />
        {/*  <Route path="/installningar" element={<Installningar />} /> */}
      {/*    <Route path="/inlogg" element={<Inlogg />} /> */}
-       {/*  <Route path="/registration" element={<Registration />} /> */}
+       <Route path="/registration" element={<Registration />} />
         {/* <Route path="/info" element={<Info />} /> */}
       </Routes>
     </Router>
