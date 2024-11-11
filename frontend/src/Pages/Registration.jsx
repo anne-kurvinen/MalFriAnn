@@ -19,6 +19,7 @@ const RegistrationPage = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,6 +59,14 @@ const RegistrationPage = () => {
   const closePopup = () => {
     setSuccess(false);
   };
+
+  const openTermsModal = () => {
+    setShowTermsModal(true);
+  }
+
+  const closeTermsModal = () => {
+    setShowTermsModal(false);
+  }
 
   return (
     <div className="registration-container">
@@ -177,7 +186,10 @@ const RegistrationPage = () => {
             onChange={handleTermsChange}
             required
           />
-            Jag godkänner <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">medlemsvillkoren</a>
+            Jag godkänner{' '}
+          <span onClick={openTermsModal} className="terms-link">
+            medlemsvillkoren
+          </span>
           </label>
         </div>
 
@@ -185,6 +197,16 @@ const RegistrationPage = () => {
           {loading ? 'Registrerar...' : 'Registrera konto'}
         </button>
       </form>
+
+      {showTermsModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Medlemsvillkor</h2>
+            <p>Här kan du läsa alla detaljer om medlemsvillkoren...</p>
+            <button onClick={closeTermsModal} className="close-modal-btn">Stäng</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
