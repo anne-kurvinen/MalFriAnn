@@ -1,55 +1,78 @@
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10; 
-
-  
-  }
-  h2 {
-    color: rgba(6, 6, 6, 0.666);
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  .modal {
-    background:  rgb(222, 222, 22);
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
- 
-  }
-  .contentLabel {
-    font-size: 15px;
-    color: rgba(6, 6, 6, 0.666);
-    margin-bottom: 10px;
-  }
-  .modalInput {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    border: 1px solid rgba(6, 6, 6, 0.666);
-  }
-  .modalbutton {
-    flex-direction: row;
-    flex-wrap: wrap;
-    background-color: #3578e5;
-    gap: 10px;
-    width: 45%;
-    padding: 10px;
-    margin: 4px;
-    border-radius: 4px;
-    border: none;
-    color: rgb(222, 222, 22);
-    font-size: 16px;
-    color:white;
-    cursor: pointer;
-  }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.login-rubrik {
+  color: rgba(6, 6, 6, 0.666);
+  font-size: 24px;
+  margin-bottom: 11px;
+}
+.modal-lay {
+  background: rgb(222, 222, 22);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.contentLabel {
+  font-size: 15px;
+  color: rgba(6, 6, 6, 0.666);
+  margin-bottom: 10px;
+}
+.modalInput {
+  width: 100%;
+  background-color: rgba(6, 6, 6, 0.666);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid white;
+}
+.modalbutton {
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  background-color: rgb(222, 222, 22);
+  gap: 30px;
+  width: 45%;
+  padding: 10px;
+  margin: 4px;
+  border-radius: 4px;
+  border: none;
+  color: rgba(6, 6, 6, 0.666);
+  font-size: 16px;
+  cursor: pointer;
+}
+.modal-text {
+  color: rgb(222, 222, 22);
+  font-size: 16px;
+  margin-top: 10px;
+}
+.modal-label {
+  font-size: 15px;
+  color: rgb(222, 222, 22);
+  margin-bottom: 10px;
+}
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: black
+}
+.modal-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  color: white;
+  background-color: #0e0e0e; 
+  box-sizing: border-box;
+}

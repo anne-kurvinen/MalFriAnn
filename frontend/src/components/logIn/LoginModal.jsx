@@ -22,7 +22,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
   const handleCancel = () => {
     setEmail('');
     setPassword('');
-    onRequestClose();
+  
   };
 
   return (
@@ -30,14 +30,14 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Logga In"
-      className="modal"
-      overlayClassName="overlay"
+      className="modal-lay"
+      overlayClassName="modal-overlay"
     >
-      <h2>Logga In</h2>
-      <form onSubmit={handleSubmit}>
+      <h3 className='login-rubrik'>Logga In</h3>
+      <form className='modal-form' onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="email">Email:</label>
-          <input
+          <label className='modal-label' htmlFor="email">Email:</label>
+          <input className='modal-input'
             type="email"
             id="email"
             value={email}
@@ -46,8 +46,8 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
-          <input
+          <label className='modal-label' htmlFor="password">Password:</label>
+          <input className='modal-input'
             type="password"
             id="password"
             value={password}
@@ -55,11 +55,20 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
             required
           />
         </div>
-        <p className="contentLabel"> Har du inget medlemskonto? <Link to="/registration" onClick={onRequestClose}>Registrera dig här</Link> </p>
+        <p className="modal-text"> Har du inget medlemskonto? <Link to="/registration" className='modal-text' onClick={onRequestClose}>Registrera dig här</Link> </p>
         <div>
           <button className="modalbutton" type="button" onClick={handleCancel}>Ångra</button>
           <button className="modalbutton" type="submit">Logga In</button>
-          <button className="modalbutton" type="button">Glömt Lösenordet</button>
+
+        <p className="modal-text"> Har du glömt ditt lösenord? </p>
+        
+          <button className="modalbutton" type="button" onClick={() => {
+          const email = prompt('Ange din e-mailadress:');
+          if (email) {
+            console.log('Återställningslänk skickad till:', email);
+            alert('En återställningslänk har skickats till din e-mailadress.');
+          }
+          }}>Nytt Lösenord</button>
         </div>
       </form>
     </Modal>
