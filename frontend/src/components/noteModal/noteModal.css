@@ -1,0 +1,87 @@
+
+.note-modal {
+    position: relative;
+    background: rgba(0, 0, 0, 0.9); 
+    padding: 30px 20px;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 10px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .note-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    border-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .note-modal h2 {
+    color: rgb(222, 222, 22); 
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .note-modal label {
+    display: block;
+    margin-top: 15px;
+    color: rgb(222, 222, 22); 
+    font-weight: bold;
+  }
+  
+  .note-modal input,
+  .note-modal textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(222, 222, 22);
+    background-color: #222; 
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .note-modal input::placeholder,
+  .note-modal textarea::placeholder {
+    color: #ccc;
+  }
+  
+  .save-btn,
+  .cancel-btn {
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .save-btn {
+    background-color: rgb(222, 222, 22);
+    color: black;
+  }
+  
+  .cancel-btn {
+    background-color: #333; 
+    color: white;
+  }
+  
+  .save-btn:hover {
+    background-color: #e6d322;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #555;
+  }
+  
