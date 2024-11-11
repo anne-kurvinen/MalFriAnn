@@ -6,6 +6,7 @@ import LoginModal from '../logIn/LoginModal';
 
 function NavbarComponent() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
@@ -13,6 +14,11 @@ function NavbarComponent() {
 
   const closeLoginModal = () => {
     setIsLoginModalOpen(false);
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+    closeLoginModal();
   };
 
   return (
@@ -31,10 +37,13 @@ function NavbarComponent() {
                 <li><Link to="/gyminfo"><i className="fas fa-info-circle"></i> Info - Medlemskap</Link></li>
               </ul>
             </li>
+            {isLoggedIn && (
+              <li><Link to="/myaccount"><i className="fas fa-user"></i> My Account</Link></li>
+            )}
           </ul>
         </div>
       </nav>
-      <LoginModal isOpen={isLoginModalOpen} onRequestClose={closeLoginModal} />
+      <LoginModal isOpen={isLoginModalOpen} onRequestClose={closeLoginModal} onLoginSuccess={handleLoginSuccess} />
     </div>
   );
 }
