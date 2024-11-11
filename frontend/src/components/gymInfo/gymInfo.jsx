@@ -20,7 +20,7 @@ function GymInfo() {
 
         <p>
           <button className="info-link" onClick={openLoginModal}>
-            Logga in
+            Logga in 
           </button>
           eller <a href="/registration" className="info-link">bli medlem</a> för att ta del av våra tjänster.
         </p>
