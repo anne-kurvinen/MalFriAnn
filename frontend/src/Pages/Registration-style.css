@@ -80,12 +80,12 @@ form input:focus {
   outline: none;
 }
 
-terms-container label {
+.terms-container label {
 display: inline-flex;
 align-items: center;
 }
 
-button {
+.registration-btn {
   width: 100%;
   padding: 12px;
   background-color: rgb(222, 222, 22);
@@ -97,7 +97,7 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
+.registration-btn:hover {
   box-shadow: 2px 4px 8px rgb(222, 222, 22);
 }
 
