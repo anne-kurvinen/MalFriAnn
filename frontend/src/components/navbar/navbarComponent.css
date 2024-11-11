@@ -57,6 +57,7 @@
 .dropdown {
   float: left;
   overflow: hidden;
+  z-index: 10;
 }
 
 /* Dropdown Content (Hidden by Default) */
