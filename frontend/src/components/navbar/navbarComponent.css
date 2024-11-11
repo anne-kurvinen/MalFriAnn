@@ -45,10 +45,24 @@
   }
 
 /* Dropdown Button */
-.dropbtn .loginbtn {
+.dropbtn {
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  background-color: rgb(222, 222, 22);
+  gap: 30px;
+  padding: 10px;
+  margin: 4px;
+  border-radius: 4px;
+  border: none;
+  color: rgba(6, 6, 6, 0.666);
+  font-size: 16px;
+  cursor: pointer;
+}
+.loginbtn {
   background-color: rgb(222, 222, 22);
   color: rgba(6, 6, 6, 0.666);
-  padding: 16px;
+  border-radius: 4px;
+  padding: 10px;
   font-size: 16px;
   border: none;
 }
@@ -66,6 +80,7 @@
   position: absolute;
   background-color: rgb(222, 222, 22);
   color: rgba(6, 6, 6, 0.666);
+  border-radius: 4px;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -89,7 +104,7 @@
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: rgb(222, 222, 22);}
+.dropdown:hover .dropbtn .loginbtn {background-color: rgb(222, 222, 22);}
 
 /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
 @media screen and (max-width: 500px) {
