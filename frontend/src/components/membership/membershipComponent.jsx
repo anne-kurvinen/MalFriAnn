@@ -39,14 +39,24 @@ const MembershipComponent = ({ onSelectMembership }) => {
       <div style={{ display: 'flex', gap: '20px' }}>
         {ChooseMemberships.map((membership) => (
           <div key={membership.id} style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px' }}>
-            <h3>{membership.name}</h3>
+            <h3 style={{ color: 'rgb(222, 222, 22)' }}>{membership.name}</h3>
             <p><strong>Pris:</strong> {membership.price}</p>
             <ul>
               {membership.benefits.map((benefit, index) => (
                 <li key={index}>{benefit}</li>
               ))}
             </ul>
-            <button onClick={() => handleMembershipSelect(membership)}>Välj {membership.name}</button>
+            <button
+      onClick={() => handleMembershipSelect(membership)}
+      style={{
+        backgroundColor: 'rgb(222, 222, 22)',
+        color: 'black',
+        padding: '10px 15px',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        marginTop: '10px',
+      }}>Välj {membership.name}</button>
           </div>
         ))}
       </div>
