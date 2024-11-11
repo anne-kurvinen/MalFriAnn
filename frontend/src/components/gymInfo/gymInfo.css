@@ -1,42 +1,41 @@
-
 .info-container {
-    background-color: rgba(0, 0, 0, 0.8); 
-    padding: 40px 20px; 
-    margin: 20px auto; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
-    text-align: center;
-  }
-  
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 40px 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+  max-width: 600px;
+}
 
-  .info-container h2 {
-    font-size: 1.8rem; 
-    margin-bottom: 20px; 
-    font-weight: 600;
-    color: rgb(222, 222, 22); 
-  }
-  
+.info-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: rgb(222, 222, 22);
+}
 
-  .info-container p {
-    font-size: 1rem; 
-    line-height: 1.6; 
-    margin: 15px 0; 
-    color: white; 
-  }
-  
+.info-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 15px 0;
+}
 
-  .link {
-    color: rgb(222, 222, 22); 
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  .link:hover {
-    color: rgb(222, 222, 22);
-    text-decoration: underline;
-  }
+.info-link {
+  color: rgb(222, 222, 22);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+}
 
-  * {
-    color: white; 
-  }
-  
+.info-link:hover {
+  text-decoration: underline;
+  color: #fff000;
+}
+
+button {
+  border-radius: none;
+}
