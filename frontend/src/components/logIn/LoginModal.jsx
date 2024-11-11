@@ -68,7 +68,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
             console.log('Återställningslänk skickad till:', email);
             alert('En återställningslänk har skickats till din e-mailadress.');
           }
-          }}>Nytt Lösenordet</button>
+          }}>Nytt Lösenord</button>
         </div>
       </form>
     </Modal>

@@ -31,7 +31,7 @@ function NavbarComponent() {
             <li><Link to="/settings"><i className="fas fa-cog"></i> Inställningar</Link></li>  
             <li><button className="loginbtn" onClick={openLoginModal}><i className="fas fa-sign-in-alt"></i> Logga In</button></li>       
             <li className="dropdown">
-              <button className="dropbtn"><i className="fas fa-user-plus"></i> Bli Medlem</button>
+              <button className="dropbtn"><i className="fas fa-user-plus"></i> Bli Medlem </button>
               <ul className="dropdown-content">
                 <li><Link to="/registration"><i className="fas fa-user-edit"></i> Registrering</Link></li>
                 <li><Link to="/gyminfo"><i className="fas fa-info-circle"></i> Info - Medlemskap</Link></li>
