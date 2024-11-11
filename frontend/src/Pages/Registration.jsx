@@ -181,7 +181,7 @@ const RegistrationPage = () => {
           </label>
         </div>
 
-        <button type="submit" disabled={loading}>
+        <button className="registration-btn" type="submit" disabled={loading}>
           {loading ? 'Registrerar...' : 'Registrera konto'}
         </button>
       </form>
