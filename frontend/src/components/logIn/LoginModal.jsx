@@ -1,27 +1,28 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import Modal from "react-modal";
-import { Link } from "react-router-dom";
-import "./LoginModal.css"; // Importera CSS-filen
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
+import './LoginModal.css'; 
 
-Modal.setAppElement("#root");
+Modal.setAppElement('#root');
 
-const LoginModal = ({ isOpen, onRequestClose }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Hantera inloggning här
-    console.log("Inloggning:", { email, password });
-    setEmail("");
-    setPassword("");
-    onRequestClose();
+    console.log('Inloggning:', { email, password });
+    setEmail('');
+    setPassword('');
+    onLoginSuccess();
   };
 
   const handleCancel = () => {
-    setEmail("");
-    setPassword("");
+    setEmail('');
+    setPassword('');
+    onRequestClose();
   };
 
   return (
@@ -33,13 +34,6 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
       overlayClassName="overlay"
     >
       <h2>Logga In</h2>
-      <p className="contentLabel">
-        {" "}
-        Har du inget medlemskonto?{" "}
-        <Link to="/registration" onClick={onRequestClose}>
-          Registrera dig här
-        </Link>{" "}
-      </p>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email:</label>
@@ -61,33 +55,11 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
             required
           />
         </div>
-
+        <p className="contentLabel"> Har du inget medlemskonto? <Link to="/registration" onClick={onRequestClose}>Registrera dig här</Link> </p>
         <div>
-          <button className="modalbutton" type="button" onClick={handleCancel}>
-            Ångra
-          </button>
-          <button className="modalbutton" type="submit">
-            Logga In
-          </button>
-
-          <p className="contentLabel">
-            {" "}
-            Har du glömt ditt lösenord?? Be om ett nytt lösenord här
-          </p>
-          <button
-            className="modalbutton"
-            type="button"
-            onClick={() => {
-              const email = prompt(
-                "Ange din emailadress för att återställa lösenordet:"
-              );
-              if (email) {
-                alert(`En återställningslänk har skickats till ${email}`);
-              }
-            }}
-          >
-            Nytt Lösenordet
-          </button>
+          <button className="modalbutton" type="button" onClick={handleCancel}>Ångra</button>
+          <button className="modalbutton" type="submit">Logga In</button>
+          <button className="modalbutton" type="button">Glömt Lösenordet</button>
         </div>
       </form>
     </Modal>
@@ -97,6 +69,7 @@ const LoginModal = ({ isOpen, onRequestClose }) => {
 LoginModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
+  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default LoginModal;
