@@ -186,7 +186,7 @@ const RegistrationPage = () => {
             onChange={handleTermsChange}
             required
           />
-            Jag godkänner{' '}
+            Jag godkänner{ ' ' }
           <span onClick={openTermsModal} className="terms-link">
             medlemsvillkoren
           </span>

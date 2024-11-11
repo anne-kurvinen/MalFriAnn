@@ -10,6 +10,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
+  color: white;
 }
 
 .selected-membership-container {
@@ -81,8 +82,17 @@ form input:focus {
 }
 
 .terms-container label {
-display: inline-flex;
+  display: inline-flex;
 align-items: center;
+white-space: nowrap;
+}
+
+.terms-container label input {
+  margin-right: 10px; /* Justera för att flytta checkboxen åt vänster */
+}
+
+.terms-link {
+  margin-left: 3px; /* Justera värdet efter behov */
 }
 
 .registration-btn {
