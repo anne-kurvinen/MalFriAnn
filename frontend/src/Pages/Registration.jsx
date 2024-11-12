@@ -200,12 +200,65 @@ const RegistrationPage = () => {
 
       {showTermsModal && (
         <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>Medlemsvillkor</h2>
-            <p>Här kan du läsa alla detaljer om medlemsvillkoren...</p>
-            <button onClick={closeTermsModal} className="close-modal-btn">Stäng</button>
-          </div>
-        </div>
+  <div className="modal-content">
+    <h2>Medlemsvillkor och GDPR</h2>
+    <p>
+      Genom att registrera dig hos MalFriAnn godkänner du att vi behandlar dina
+      personuppgifter enligt Dataskyddsförordningen (GDPR). Vi värnar om din
+      integritet och säkerheten för dina uppgifter, och vi strävar efter att
+      ge dig full insyn i hur vi hanterar dessa uppgifter.
+    </p>
+    <p>
+      <br />
+      <strong>Vilka uppgifter samlar vi in?</strong>
+      <br />
+      Vi samlar in namn, kontaktuppgifter (e-post och telefonnummer),
+      personnummer, betalningsinformation och träningshistorik för att kunna
+      erbjuda våra tjänster och anpassa ditt medlemskap.
+    </p>
+    <p>
+      <br />
+      <strong>Hur används dina personuppgifter?</strong>
+      <br />
+      Dina uppgifter används för att skapa och hantera ditt medlemskonto,
+      säkerställa en trygg och anpassad träningsupplevelse, ge information om
+      medlemskap, hantera betalningar och förbättra våra tjänster.
+    </p>
+    <p>
+      <br /> 
+      <strong>Hur lagrar och skyddar vi dina uppgifter?</strong>
+      <br />
+      Ditt data lagras säkert och är endast åtkomligt för behörig personal.
+      Vi använder industristandarder för att skydda din information mot
+      obehörig åtkomst och spridning.
+    </p>
+    <p>
+      <br />
+      <strong>Delning av personuppgifter</strong>
+      <br />
+      Vi delar inte dina uppgifter med tredje part, förutom när det krävs
+      enligt lag eller med betrodda tjänsteleverantörer för att kunna erbjuda
+      våra tjänster (t.ex. för betalningshantering). Dessa är skyldiga att
+      följa GDPR och får inte använda dina uppgifter för andra ändamål.
+    </p>
+    <p>
+      <br />
+      <strong>Dina rättigheter</strong>
+      <br />
+      Du har rätt att begära tillgång till, rätta, radera, begränsa och
+      invända mot behandlingen av dina personuppgifter. Kontakta oss gärna på
+      <em> MalFriAnn@gym.com</em> för frågor eller för att utöva dina rättigheter.
+    </p>
+    <p>
+      Genom att klicka på &quot;Jag godkänner medlemsvillkoren&quot; bekräftar du att du har läst och
+      förstått våra villkor för behandling av personuppgifter och samtycker
+      till att dina uppgifter behandlas enligt beskrivningen ovan.
+    </p>
+    <button onClick={closeTermsModal} className="close-modal-btn">
+      Stäng
+    </button>
+  </div>
+</div>
       )}
     </div>
   );
