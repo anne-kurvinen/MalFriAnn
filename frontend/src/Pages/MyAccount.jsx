@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './MyAccount.css';
 
 const EditProfilePage = () => {
   const [formData, setFormData] = useState({
@@ -57,8 +58,9 @@ const EditProfilePage = () => {
   };
 
   return (
+    <>
+    <h1 className="edit-profile-h1">Redigera profil</h1>
     <div className="edit-profile-container">
-      <h1>Redigera profil</h1>
       {error && <div className="error-message">{error}</div>}
 
       {success && (
@@ -70,7 +72,7 @@ const EditProfilePage = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form className="edit-profile-form" onSubmit={handleSubmit}>
         <div>
           <label>Förnamn:</label>
           <input
@@ -155,6 +157,7 @@ const EditProfilePage = () => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

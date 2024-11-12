@@ -1,4 +1,4 @@
-update-btn {
+.update-btn {
     width: 100%;
   padding: 12px;
   background-color: rgb(222, 222, 22);
@@ -8,4 +8,22 @@ update-btn {
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.edit-profile-container {
+  display: flex;
+  justify-content: center; /* Centrerar horisontellt */
+  align-items: center;     /* Centrerar vertikalt */
+  min-height: 100vh;       /* Gör att containern tar upp hela höjden av sidan */
+}
+
+.edit-profile-form {
+  width: 100%;
+  max-width: 500px;      /* Begränsar bredden på formuläret */
+  background-color: black;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgb(222, 222, 22);
+  box-sizing: border-box;
+  margin-top: 5px;
 }
