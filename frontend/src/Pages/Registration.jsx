@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import MembershipComponent  from '../components/membership/membershipComponent.jsx';
+import { useNavigate } from 'react-router-dom';
+import MembershipComponent from '../components/membership/membershipComponent.jsx';
 import './Registration-style.css';
 
 const RegistrationPage = () => {
@@ -9,6 +10,8 @@ const RegistrationPage = () => {
     email: '',
     personalId: '',
     address: '',
+    postcode: '',
+    city: '',
     phoneNumber: '',
     password: '',
     confirmPassword: '',
@@ -19,7 +22,7 @@ const RegistrationPage = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [showTermsModal, setShowTermsModal] = useState(false)
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,15 +61,21 @@ const RegistrationPage = () => {
 
   const closePopup = () => {
     setSuccess(false);
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      personalId: '',
+      address: '',
+      postcode: '',
+      city: '',
+      phoneNumber: '',
+      password: '',
+      confirmPassword: '',
+    });
+    setAcceptedTerms(false);
+    navigate('/');
   };
-
-  const openTermsModal = () => {
-    setShowTermsModal(true);
-  }
-
-  const closeTermsModal = () => {
-    setShowTermsModal(false);
-  }
 
   return (
     <div className="registration-container">
@@ -82,17 +91,17 @@ const RegistrationPage = () => {
         </div>
       )}
 
-<MembershipComponent onSelectMembership={setSelectedMembership} />
+      <MembershipComponent onSelectMembership={setSelectedMembership} />
 
-{selectedMembership && (
-  <div className="selected-membership-container">
-    <p>
-      Du har valt: <strong>{selectedMembership.name}</strong> - <span className="price">{selectedMembership.price}</span>
-    </p>
-  </div>
-)}
+      {selectedMembership && (
+        <div className="selected-membership-container">
+          <p>
+            Du har valt: <strong>{selectedMembership.name}</strong> - <span className="price">{selectedMembership.price}</span>
+          </p>
+        </div>
+      )}
 
-<h2 className="personuppgifter-heading">Skriv in dina personuppgifter</h2>
+      <h2 className="personuppgifter-heading">Skriv in dina personuppgifter</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -146,6 +155,26 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
+          <label>Postnummer:</label>
+          <input
+            type="text"
+            name="postcode"
+            value={formData.postcode}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Stad:</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
           <label>Telefonnummer:</label>
           <input
             type="text"
@@ -178,18 +207,15 @@ const RegistrationPage = () => {
         
         {/* Terms and Conditions Checkbox */}
         <div className="terms-container">
-        <label htmlFor="terms">
-          <input
-            type="checkbox"
-            id="terms"
-            checked={acceptedTerms}
-            onChange={handleTermsChange}
-            required
-          />
-            Jag godkänner{ ' ' }
-          <span onClick={openTermsModal} className="terms-link">
-            medlemsvillkoren
-          </span>
+          <label className='termlabel' htmlFor="terms">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={acceptedTerms}
+              onChange={handleTermsChange}
+              required
+            />
+            Jag godkänner <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">medlemsvillkoren</a>
           </label>
         </div>
 
@@ -197,69 +223,6 @@ const RegistrationPage = () => {
           {loading ? 'Registrerar...' : 'Registrera konto'}
         </button>
       </form>
-
-      {showTermsModal && (
-        <div className="modal-overlay">
-  <div className="modal-content">
-    <h2>Medlemsvillkor och GDPR</h2>
-    <p>
-      Genom att registrera dig hos MalFriAnn godkänner du att vi behandlar dina
-      personuppgifter enligt Dataskyddsförordningen (GDPR). Vi värnar om din
-      integritet och säkerheten för dina uppgifter, och vi strävar efter att
-      ge dig full insyn i hur vi hanterar dessa uppgifter.
-    </p>
-    <p>
-      <br />
-      <strong>Vilka uppgifter samlar vi in?</strong>
-      <br />
-      Vi samlar in namn, kontaktuppgifter (e-post och telefonnummer),
-      personnummer, betalningsinformation och träningshistorik för att kunna
-      erbjuda våra tjänster och anpassa ditt medlemskap.
-    </p>
-    <p>
-      <br />
-      <strong>Hur används dina personuppgifter?</strong>
-      <br />
-      Dina uppgifter används för att skapa och hantera ditt medlemskonto,
-      säkerställa en trygg och anpassad träningsupplevelse, ge information om
-      medlemskap, hantera betalningar och förbättra våra tjänster.
-    </p>
-    <p>
-      <br /> 
-      <strong>Hur lagrar och skyddar vi dina uppgifter?</strong>
-      <br />
-      Ditt data lagras säkert och är endast åtkomligt för behörig personal.
-      Vi använder industristandarder för att skydda din information mot
-      obehörig åtkomst och spridning.
-    </p>
-    <p>
-      <br />
-      <strong>Delning av personuppgifter</strong>
-      <br />
-      Vi delar inte dina uppgifter med tredje part, förutom när det krävs
-      enligt lag eller med betrodda tjänsteleverantörer för att kunna erbjuda
-      våra tjänster (t.ex. för betalningshantering). Dessa är skyldiga att
-      följa GDPR och får inte använda dina uppgifter för andra ändamål.
-    </p>
-    <p>
-      <br />
-      <strong>Dina rättigheter</strong>
-      <br />
-      Du har rätt att begära tillgång till, rätta, radera, begränsa och
-      invända mot behandlingen av dina personuppgifter. Kontakta oss gärna på
-      <em> MalFriAnn@gym.com</em> för frågor eller för att utöva dina rättigheter.
-    </p>
-    <p>
-      Genom att klicka på &quot;Jag godkänner medlemsvillkoren&quot; bekräftar du att du har läst och
-      förstått våra villkor för behandling av personuppgifter och samtycker
-      till att dina uppgifter behandlas enligt beskrivningen ovan.
-    </p>
-    <button onClick={closeTermsModal} className="close-modal-btn">
-      Stäng
-    </button>
-  </div>
-</div>
-      )}
     </div>
   );
 };
