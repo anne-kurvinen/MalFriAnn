@@ -11,6 +11,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import StartPage from './pages/StartPage.jsx';
 import Footer from './components/footer/footer.jsx';
 import NotesPage from './pages/NotesPage.jsx';
+import MyAccount from './Pages/MyAccount';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/gyminfo" element={<GymInfo />} />
         <Route path="/notes" element={<NotesPage />} />
+        <Route path="/myaccount" element={<MyAccount />} />
 
       </Routes>
       <Footer />

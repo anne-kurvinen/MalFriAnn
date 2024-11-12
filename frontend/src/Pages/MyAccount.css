@@ -1,0 +1,11 @@
+update-btn {
+    width: 100%;
+  padding: 12px;
+  background-color: rgb(222, 222, 22);
+  color: black;
+  border-radius: 6px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
