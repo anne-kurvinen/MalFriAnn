@@ -1,20 +1,9 @@
-.update-btn {
-    width: 100%;
-  padding: 12px;
-  background-color: rgb(222, 222, 22);
-  color: black;
-  border-radius: 6px;
-  border: none;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
 .edit-profile-container {
   display: flex;
   justify-content: center; /* Centrerar horisontellt */
   align-items: center;     /* Centrerar vertikalt */
   min-height: 100vh;       /* Gör att containern tar upp hela höjden av sidan */
+  margin-bottom: 30px;
 }
 
 .edit-profile-form {
@@ -26,4 +15,80 @@
   box-shadow: 0 4px 16px rgb(222, 222, 22);
   box-sizing: border-box;
   margin-top: 5px;
+}
+
+.edit-profile-h1 {
+  margin-top: 40px;
+  text-align: center; 
+  font-size: 2rem; 
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Avstånd mellan knapparna */
+  justify-content: space-between; /* Gör att de delas upp horisontellt */
+}
+
+.update-btn,
+.delete-btn {
+  width: 100%; /* Ger båda knapparna samma bredd */
+  flex: 1; /* Gör att de delar på utrymmet */
+  padding: 12px;
+  background-color: rgb(222, 222, 22);
+  color: black;
+  border-radius: 6px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-overlay-delete {
+position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    border-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-delete {
+  position: relative;
+    background: rgba(0, 0, 0, 0.9); 
+    padding: 30px 30px;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 10px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.confirm-btn {
+  margin-top: 20px;
+    margin-right: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: rgb(222, 222, 22);
+    color: black;
+}
+
+.cancel-btn {
+  margin-top: 20px;
+    margin-right: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: rgb(222, 222, 22);
+    color: black;
 }
