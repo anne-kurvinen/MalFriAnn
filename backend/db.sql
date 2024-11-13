@@ -1,25 +1,32 @@
+CREATE TABLE memberShipCategories (
+  id SERIAL PRIMARY KEY,
+  price INTEGER NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  description TEXT NOT NULL
+);
+
 CREATE TABLE members (
-  id serial PRIMARY KEY,
-  firstName text UNIQUE NOT NULL,
-  lastName text UNIQUE NOT NULL,
+  id SERIAL PRIMARY KEY,
+  firstName VARCHAR(50) NOT NULL,
+  lastName VARCHAR(50) NOT NULL,
   personalId INTEGER UNIQUE NOT NULL,
-  email text UNIQUE NOT NULL,
-  memberShip INTEGER NOT NULL,
-  password text UNIQUE NOT NULL,
-  address text NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  memberShip INTEGER REFERENCES memberShipCategories(id),
+  password VARCHAR(255) NOT NULL,
+  address TEXT NOT NULL,
   postcode INTEGER NOT NULL,
-  city text NOT NULL,
-  phoneNumber INTEGER NOT NULL,
+  city VARCHAR(100) NOT NULL,
+  phoneNumber BIGINT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE memberShipCategories (
-  id serial PRIMARY KEY,
-  price INTEGER NOT NULL,
-  title text NOT NULL,
-  description text NOT NULL,
-  FOREIGN KEY(memberShipCategoryId) REFERENCES members(id) 
-);
+CREATE TABLE notes (
+  id SERIAL PRIMARY KEY,
+  member_id INTEGER NOT NULL REFERENCES members(id) ON DELETE CASCADE,
+  title VARCHAR(150) NOT NULL,
+  description TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
 
 
 INSERT INTO members (firstName, lastName, personalId, email, password, address, postcode, city, phoneNumber)
