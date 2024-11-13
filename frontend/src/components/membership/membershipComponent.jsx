@@ -1,35 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types'; 
 
-// Ditt medlemskapsalternativ
-const ChooseMemberships = [
-  {
-    id: 1,
-    name: 'Basic',
-    price: '199 SEK/month',
-    benefits: ['Tillgång till gym', '1 gästpass per månad', 'Möjlighet att köpa till klasser'],
-  },
-  {
-    id: 2,
-    name: 'Premium',
-    price: '399 SEK/month',
-    benefits: ['Tillgång till gym', 'Obegränsad tillgång till klasser', '3 gästpass per månad'],
-  },
-  {
-    id: 3,
-    name: 'VIP',
-    price: '699 SEK/month',
-    benefits: ['Tillgång till gym 24/7 ', 'Personlig tränare', 'Obegränsad tillgång till gästpass'],
-  },
-];
 
-// Funktion för att välja medlemskap 
+const fetchCategories = async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/api/membership-categories');
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
+};
+
 const MembershipComponent = ({ onSelectMembership }) => {
-  const [selectedMembership, setSelectedMembership] = useState(null);
+  const [categories, setCategories] = useState([]); 
+
+  
+  useEffect(() => {
+    const loadCategories = async () => {
+      const fetchedCategories = await fetchCategories();
+      setCategories(fetchedCategories); 
+    };
+
+    loadCategories();
+  }, []); 
 
   const handleMembershipSelect = (membership) => {
-    setSelectedMembership(membership);
     if (onSelectMembership) {
-      onSelectMembership(membership); // Skickar tillbaka den valda medlemskap till föräldern
+      onSelectMembership(membership); 
     }
   };
 
@@ -37,31 +36,37 @@ const MembershipComponent = ({ onSelectMembership }) => {
     <div>
       <h2 style={{ marginBottom: '20px' }}>Välj ett medlemskap:</h2>
       <div style={{ display: 'flex', gap: '20px' }}>
-        {ChooseMemberships.map((membership) => (
+        {categories.map((membership) => (
           <div key={membership.id} style={{ border: '1px solid #ddd', padding: '20px', borderRadius: '8px' }}>
-            <h3 style={{ color: 'rgb(222, 222, 22)' }}>{membership.name}</h3>
-            <p><strong>Pris:</strong> {membership.price}</p>
+            <h3 style={{ color: 'rgb(222, 222, 22)' }}>{membership.title}</h3>
+            <p><strong>Pris:</strong> {membership.price} SEK/month</p>
             <ul>
-              {membership.benefits.map((benefit, index) => (
-                <li key={index}>{benefit}</li>
-              ))}
+              <li>{membership.description}</li>
             </ul>
             <button
-      onClick={() => handleMembershipSelect(membership)}
-      style={{
-        backgroundColor: 'rgb(222, 222, 22)',
-        color: 'black',
-        padding: '10px 15px',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        marginTop: '10px',
-      }}>Välj {membership.name}</button>
+              onClick={() => handleMembershipSelect(membership)}
+              style={{
+                backgroundColor: 'rgb(222, 222, 22)',
+                color: 'black',
+                padding: '10px 15px',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                marginTop: '10px',
+              }}
+            >
+              Välj {membership.title}
+            </button>
           </div>
         ))}
       </div>
     </div>
   );
+};
+
+
+MembershipComponent.propTypes = {
+  onSelectMembership: PropTypes.func.isRequired, 
 };
 
 export default MembershipComponent;

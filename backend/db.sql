@@ -45,3 +45,10 @@ INSERT INTO members (firstName, lastName, personalId, email, password, address, 
 INSERT INTO members (firstName, lastName, personalId, email, password, address, postcode, city, phoneNumber)
     VALUES ('Eva', 'Eriksson', 800202-5656, 'eriksson.eva@firma.com', 4321, 'Lundagatan 5', 311 05, 'Lund', 070-8765432);
 
+
+
+INSERT INTO memberShipCategories (price, title, description) VALUES
+  (199, 'Basic', 'Tillgång till gym\n1 gästpass per månad\nMöjlighet att köpa till klasser'),
+  (399, 'Premium', 'Tillgång till gym\nObegränsad tillgång till klasser\n3 gästpass per månad'),
+  (699, 'VIP', 'Tillgång till gym 24/7\nPersonlig tränare\nObegränsad tillgång till gästpass');
+
