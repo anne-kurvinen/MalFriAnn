@@ -1,6 +1,6 @@
 .footer-container {
     background-color: #111;
-    color: #ddd;
+    color:#ddd;
     padding: 40px 20px;
     text-align: center;
   }
@@ -22,7 +22,7 @@
   
   .footer-brand p {
     font-size: 0.9rem;
-    color: #aaa;
+    color: #ddd;
   }
  
   .footer-contact h3, 
@@ -35,7 +35,7 @@
   
   .footer-contact p {
     font-size: 0.9rem;
-    color: #aaa;
+    color: #ddd;
     margin: 6px 0;
   }
   
