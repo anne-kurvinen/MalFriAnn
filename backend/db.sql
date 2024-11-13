@@ -26,6 +26,7 @@ CREATE TABLE notes (
   title VARCHAR(150) NOT NULL,
   description TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
 
