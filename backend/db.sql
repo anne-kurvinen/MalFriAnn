@@ -13,8 +13,8 @@ CREATE TABLE members (
   email VARCHAR(255) UNIQUE NOT NULL,
   memberShip INTEGER REFERENCES memberShipCategories(id),
   password VARCHAR(255) NOT NULL,
-  address TEXT NOT NULL,
-  postcode INTEGER NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  postcode BIGINT NOT NULL,
   city VARCHAR(100) NOT NULL,
   phoneNumber BIGINT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
