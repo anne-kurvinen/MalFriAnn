@@ -9,6 +9,7 @@ const EditProfilePage = () => {
     personalId: '', // visas men kan inte ändras
     address: '',
     postcode: '',
+    city: '',
     phoneNumber: '',
     password: '',
   });
@@ -16,6 +17,7 @@ const EditProfilePage = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     // Hämta användarens nuvarande uppgifter från backend och fylla i formData.
@@ -28,6 +30,7 @@ const EditProfilePage = () => {
       personalId: '123456-7890', // Personnummer ska visas men inte vara redigerbart
       address: 'Exempelgatan 1',
       postcode: '430 11',
+      city: 'Stockholm',
       phoneNumber: '0701234567',
       password: '', // Lämna lösenordet tomt för säkerhet
     };
@@ -55,6 +58,12 @@ const EditProfilePage = () => {
 
   const closePopup = () => {
     setSuccess(false);
+  };
+
+  const handleDelete = () => {
+    console.log("Profil raderad");
+    // Kod från för att radera profilen från backend här.
+    setShowDeleteModal(false); // Stänger modalen efter radering.
   };
 
   return (
@@ -123,11 +132,21 @@ const EditProfilePage = () => {
           />
         </div>
         <div>
-          <label>Postkod:</label>
+          <label>Postnummer:</label>
           <input
             type="text"
             name="address"
             value={formData.postcode}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Stad:</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
             onChange={handleChange}
             required
           />
@@ -151,12 +170,30 @@ const EditProfilePage = () => {
             onChange={handleChange}
           />
         </div>
-
+<div className="button-container">
         <button className="update-btn" type="submit" disabled={loading}>
           {loading ? 'Uppdaterar...' : 'Uppdatera profil'}
         </button>
-      </form>
-    </div>
+        <button
+            className="delete-btn"
+            type="button"
+            onClick={() => setShowDeleteModal(true)}
+          >
+            Radera profil
+          </button>
+          </div>
+        </form>
+      </div>
+
+      {showDeleteModal && (
+        <div className="modal-overlay-delete">
+          <div className="modal-delete">
+            <p>Är du säker på att du vill radera din profil?</p>
+            <button className="confirm-btn" onClick={handleDelete}>Ja</button>
+            <button className="cancel-btn" onClick={() => setShowDeleteModal(false)}>Nej</button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
