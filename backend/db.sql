@@ -81,4 +81,3 @@ CREATE TABLE memberShips (
   member_id INTEGER,
   FOREIGN KEY(memberShipCategories_id) FOREIGN KEY(member_id) REFERENCES memberShips(id) 
 );
-
