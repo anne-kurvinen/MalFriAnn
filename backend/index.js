@@ -3,10 +3,27 @@ const express = require('express'),
 
 const app = express()
 
+const dotenv = require('dotenv'),
+  { Client } = require('pg')
+const { title } = require('process')
+
+  dotenv.config()
+
+const client = new Client({
+  connectionString: process.env.PGURI
+})
+
+client.connect()
+
 const port = process.env.PORT || 3000;
 
-app.get('/api', (_request, response) => {
-  response.send({ hello: 'World' })
+app.get('/api', async (_request, response) => {
+  const { rows } = await client.query(
+    'SELECT * FROM memberShips WHERE title = $1',
+    ['VIP']
+  )
+
+  response.send(rows)
 })
 
 app.use(express.static(path.join(path.resolve(), 'dist')))
