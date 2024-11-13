@@ -114,8 +114,9 @@ const RegistrationPage = () => {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Förnamn:</label>
+          
           <input
+            placeholder='Förnamn'
             type="text"
             name="firstName"
             value={formData.firstName}
@@ -124,8 +125,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Efternamn:</label>
+          
           <input
+          placeholder='Efternamn'
             type="text"
             name="lastName"
             value={formData.lastName}
@@ -134,8 +136,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Email:</label>
+          
           <input
+          placeholder='E-mail'
             type="email"
             name="email"
             value={formData.email}
@@ -144,8 +147,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Personnummer:</label>
+          
           <input
+          placeholder='Personnummer'
             type="text"
             name="personalId"
             value={formData.personalId}
@@ -154,8 +158,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Adress:</label>
+          
           <input
+          placeholder='Adress'
             type="text"
             name="address"
             value={formData.address}
@@ -164,8 +169,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Postnummer:</label>
+          
           <input
+          placeholder='Postnummer'
             type="text"
             name="postcode"
             value={formData.postcode}
@@ -174,8 +180,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Stad:</label>
+          
           <input
+          placeholder='Stad'
             type="text"
             name="city"
             value={formData.city}
@@ -184,8 +191,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Telefonnummer:</label>
+          
           <input
+          placeholder='Telefonnummer'
             type="text"
             name="phoneNumber"
             value={formData.phoneNumber}
@@ -194,8 +202,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Lösenord:</label>
+          
           <input
+          placeholder='Lösenord'
             type="password"
             name="password"
             value={formData.password}
@@ -204,8 +213,9 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          <label>Bekräfta lösenord:</label>
+         
           <input
+          placeholder='Bekräfta lösenord'
             type="password"
             name="confirmPassword"
             value={formData.confirmPassword}
