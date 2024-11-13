@@ -48,7 +48,17 @@ INSERT INTO members (firstName, lastName, personalId, email, password, address, 
 
 
 INSERT INTO memberShipCategories (price, title, description) VALUES
-  (199, 'Basic', 'Tillgång till gym\n1 gästpass per månad\nMöjlighet att köpa till klasser'),
-  (399, 'Premium', 'Tillgång till gym\nObegränsad tillgång till klasser\n3 gästpass per månad'),
-  (699, 'VIP', 'Tillgång till gym 24/7\nPersonlig tränare\nObegränsad tillgång till gästpass');
+  (199, 'Basic', 'Basic membership with limited access'),
+  (399, 'Premium', 'Premium membership with full access'),
+  (699, 'VIP', 'VIP membership with full access and extra features');
 
+INSERT INTO memberShipCategories (price, title, description)
+    VALUES (199, 'Basic', 'Basic membership with limited access');
+
+INSERT INTO memberShipCategories (price, title, description) 
+    VALUES (399, 'Premium', 'Premium membership with full access');   
+
+INSERT INTO memberShipCategories (price, title, description)
+    VALUES (699, 'VIP', 'VIP membership with full access and extra features');
+
+SELECT * FROM memberShipCategories;
