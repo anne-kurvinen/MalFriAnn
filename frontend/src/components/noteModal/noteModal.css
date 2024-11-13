@@ -2,7 +2,7 @@
 .note-modal {
     position: relative;
     background: rgba(0, 0, 0, 0.9); 
-    padding: 30px 20px;
+    padding: 30px 30px;
     width: 90%;
     max-width: 500px;
     margin: auto;
@@ -42,7 +42,7 @@
   .note-modal textarea {
     width: 100%;
     margin: 10px 0;
-    padding: 10px;
+    padding: 5px;
     border-radius: 6px;
     border: 1px solid rgb(222, 222, 22);
     background-color: #222; 
