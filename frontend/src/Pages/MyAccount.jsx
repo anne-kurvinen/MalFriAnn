@@ -114,12 +114,15 @@ const EditProfilePage = () => {
         </div>
         <div>
           <label>Personnummer:</label>
+          <div className="input-container">
+          <i className="fas fa-lock lock-icon"></i> {/* Låsikon */}
           <input
             type="text"
             name="personalId"
             value={formData.personalId}
             readOnly // Fältet är skrivskyddat
           />
+        </div>
         </div>
         <div>
           <label>Adress:</label>
