@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginModal.css'; 
 
 Modal.setAppElement('#root');
@@ -9,20 +9,43 @@ Modal.setAppElement('#root');
 const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Hantera inloggning här
-    console.log('Inloggning:', { email, password });
-    setEmail('');
-    setPassword('');
-    onLoginSuccess();
+
+    try {
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setEmail('');
+        setPassword('');
+        setError('');
+        onLoginSuccess();
+        onRequestClose();
+        navigate('/'); // Navigera till startsidan
+      } else {
+        setError(data.message);
+      }
+    } catch {
+      setError('Något gick fel. Försök igen senare.');
+    }
   };
 
   const handleCancel = () => {
     setEmail('');
     setPassword('');
-  
+    setError('');
+    onRequestClose();
   };
 
   return (
@@ -35,6 +58,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
     >
       <h3 className='login-rubrik'>Logga In</h3>
       <form className='modal-form' onSubmit={handleSubmit}>
+        {error && <div className="error-message">{error}</div>}
         <div>
           <label className='modal-label' htmlFor="email">Email:</label>
           <input className='modal-input'
@@ -47,29 +71,35 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
         </div>
         <div>
           <label className='modal-label' htmlFor="password">Password:</label>
-          <input className='modal-input'
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-input-container">
+            <input className='modal-input'
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
         </div>
         <p className="modal-text"> Har du inget medlemskonto? <Link to="/registration" className='modal-text' onClick={onRequestClose}>Registrera dig här</Link> </p>
         <div>
           <button className="modalbutton" type="button" onClick={handleCancel}>Ångra</button>
           <button className="modalbutton" type="submit">Logga In</button>
-
-        <p className="modal-text"> Har du glömt ditt lösenord? </p>
-        
-          <button className="modalbutton" type="button" onClick={() => {
-          const email = prompt('Ange din e-mailadress:');
-          if (email) {
-            console.log('Återställningslänk skickad till:', email);
-            alert('En återställningslänk har skickats till din e-mailadress.');
-          }
-          }}>Nytt Lösenord</button>
         </div>
+        <p className="modal-text"> Har du glömt ditt lösenord? </p>
+        <button
+          className="modalbutton"
+          type="button"
+          onClick={() => {
+            const email = prompt('Ange din e-mailadress:');
+            if (email) {
+              console.log('Återställningslänk skickad till:', email);
+              alert('En återställningslänk har skickats till din e-mailadress.');
+            }
+          }}
+        >
+          Nytt Lösenord
+        </button>
       </form>
     </Modal>
   );

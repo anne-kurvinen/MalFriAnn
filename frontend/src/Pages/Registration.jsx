@@ -1,28 +1,28 @@
-import { useState } from 'react';
-import MembershipComponent  from '../components/membership/membershipComponent.jsx';
-import './Registration-style.css';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import MembershipComponent from "../components/membership/membershipComponent.jsx";
+import "./Registration-style.css";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    personalId: '',
-    address: '',
-    postcode: '',
-    city: '',
-    phoneNumber: '',
-    password: '',
-    confirmPassword: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    personalId: "",
+    address: "",
+    postcode: "",
+    city: "",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [selectedMembership, setSelectedMembership] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [showTermsModal, setShowTermsModal] = useState(false)
+  const [showTermsModal, setShowTermsModal] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -50,11 +50,16 @@ const RegistrationPage = () => {
     e.preventDefault();
     if (!validateForm()) return;
     setLoading(true);
-    setError('');
+    setError("");
     setSuccess(false);
 
     setTimeout(() => {
-      console.log('Simulerad registrering med data:', formData, 'Medlemskap:', selectedMembership);
+      console.log(
+        "Simulerad registrering med data:",
+        formData,
+        "Medlemskap:",
+        selectedMembership
+      );
       setLoading(false);
       setSuccess(true);
     }, 1000);
@@ -63,28 +68,28 @@ const RegistrationPage = () => {
   const closePopup = () => {
     setSuccess(false);
     setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      personalId: '',
-      address: '',
-      postcode: '',
-      city: '',
-      phoneNumber: '',
-      password: '',
-      confirmPassword: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      personalId: "",
+      address: "",
+      postcode: "",
+      city: "",
+      phoneNumber: "",
+      password: "",
+      confirmPassword: "",
     });
     setAcceptedTerms(false);
-    navigate('/');
+    navigate("/");
   };
 
   const openTermsModal = () => {
     setShowTermsModal(true);
-  }
+  };
 
   const closeTermsModal = () => {
     setShowTermsModal(false);
-  }
+  };
 
   return (
     <div className="registration-container">
@@ -95,28 +100,30 @@ const RegistrationPage = () => {
         <div className="popup">
           <div className="popup-content">
             <p className="popup-message">Registrering lyckades!</p>
-            <button className="close-popup" onClick={closePopup}>OK</button>
+            <button className="close-popup" onClick={closePopup}>
+              OK
+            </button>
           </div>
         </div>
       )}
 
-<MembershipComponent onSelectMembership={setSelectedMembership} />
+      <MembershipComponent onSelectMembership={setSelectedMembership} />
 
-{selectedMembership && (
-  <div className="selected-membership-container">
-    <p>
-      Du har valt: <strong>{selectedMembership.name}</strong> - <span className="price">{selectedMembership.price}</span>
-    </p>
-  </div>
-)}
+      {selectedMembership && (
+        <div className="selected-membership-container">
+          <p>
+            Du har valt: <strong>{selectedMembership.name}</strong> -{" "}
+            <span className="price">{selectedMembership.price}</span>
+          </p>
+        </div>
+      )}
 
-<h2 className="personuppgifter-heading">Skriv in dina personuppgifter</h2>
+      <h2 className="personuppgifter-heading">Skriv in dina personuppgifter</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
-          
           <input
-            placeholder='Förnamn'
+            placeholder="Förnamn"
             type="text"
             name="firstName"
             value={formData.firstName}
@@ -125,9 +132,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder='Efternamn'
+            placeholder="Efternamn"
             type="text"
             name="lastName"
             value={formData.lastName}
@@ -136,9 +142,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder='E-mail'
+            placeholder="E-mail"
             type="email"
             name="email"
             value={formData.email}
@@ -147,9 +152,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder='Personnummer'
+            placeholder="Personnummer"
             type="text"
             name="personalId"
             value={formData.personalId}
@@ -158,9 +162,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder='Adress'
+            placeholder="Adress"
             type="text"
             name="address"
             value={formData.address}
@@ -169,9 +172,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder='Postnummer'
+            placeholder="Postnummer"
             type="text"
             name="postcode"
             value={formData.postcode}
@@ -180,9 +182,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder='Stad'
+            placeholder="Stad"
             type="text"
             name="city"
             value={formData.city}
@@ -191,9 +192,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder='Telefonnummer'
+            placeholder="Telefonnummer"
             type="text"
             name="phoneNumber"
             value={formData.phoneNumber}
@@ -202,9 +202,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-          
           <input
-          placeholder='Lösenord'
+            placeholder="Lösenord"
             type="password"
             name="password"
             value={formData.password}
@@ -213,9 +212,8 @@ const RegistrationPage = () => {
           />
         </div>
         <div>
-         
           <input
-          placeholder='Bekräfta lösenord'
+            placeholder="Bekräfta lösenord"
             type="password"
             name="confirmPassword"
             value={formData.confirmPassword}
@@ -223,90 +221,96 @@ const RegistrationPage = () => {
             required
           />
         </div>
-        
+
         {/* Terms and Conditions Checkbox */}
         <div className="terms-container">
-        <label htmlFor="terms">
-          <input
-            type="checkbox"
-            id="terms"
-            checked={acceptedTerms}
-            onChange={handleTermsChange}
-            required
-          />
-            Jag godkänner{ ' ' }
-          <span onClick={openTermsModal} className="terms-link">
-            medlemsvillkoren
-          </span>
+          <label htmlFor="terms">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={acceptedTerms}
+              onChange={handleTermsChange}
+              required
+            />
+            Jag godkänner{" "}
+            <span onClick={openTermsModal} className="terms-link">
+              medlemsvillkoren
+            </span>
           </label>
         </div>
 
         <button className="registration-btn" type="submit" disabled={loading}>
-          {loading ? 'Registrerar...' : 'Registrera konto'}
+          {loading ? "Registrerar..." : "Registrera konto"}
         </button>
       </form>
 
       {showTermsModal && (
         <div className="modal-overlay">
-  <div className="modal-content">
-    <h2>Medlemsvillkor och GDPR</h2>
-    <p>
-      Genom att registrera dig hos MalFriAnn godkänner du att vi behandlar dina
-      personuppgifter enligt Dataskyddsförordningen (GDPR). Vi värnar om din
-      integritet och säkerheten för dina uppgifter, och vi strävar efter att
-      ge dig full insyn i hur vi hanterar dessa uppgifter.
-    </p>
-    <p>
-      <br />
-      <strong>Vilka uppgifter samlar vi in?</strong>
-      <br />
-      Vi samlar in namn, kontaktuppgifter (e-post och telefonnummer),
-      personnummer, betalningsinformation och träningshistorik för att kunna
-      erbjuda våra tjänster och anpassa ditt medlemskap.
-    </p>
-    <p>
-      <br />
-      <strong>Hur används dina personuppgifter?</strong>
-      <br />
-      Dina uppgifter används för att skapa och hantera ditt medlemskonto,
-      säkerställa en trygg och anpassad träningsupplevelse, ge information om
-      medlemskap, hantera betalningar och förbättra våra tjänster.
-    </p>
-    <p>
-      <br /> 
-      <strong>Hur lagrar och skyddar vi dina uppgifter?</strong>
-      <br />
-      Ditt data lagras säkert och är endast åtkomligt för behörig personal.
-      Vi använder industristandarder för att skydda din information mot
-      obehörig åtkomst och spridning.
-    </p>
-    <p>
-      <br />
-      <strong>Delning av personuppgifter</strong>
-      <br />
-      Vi delar inte dina uppgifter med tredje part, förutom när det krävs
-      enligt lag eller med betrodda tjänsteleverantörer för att kunna erbjuda
-      våra tjänster (t.ex. för betalningshantering). Dessa är skyldiga att
-      följa GDPR och får inte använda dina uppgifter för andra ändamål.
-    </p>
-    <p>
-      <br />
-      <strong>Dina rättigheter</strong>
-      <br />
-      Du har rätt att begära tillgång till, rätta, radera, begränsa och
-      invända mot behandlingen av dina personuppgifter. Kontakta oss gärna på
-      <em> MalFriAnn@gym.com</em> för frågor eller för att utöva dina rättigheter.
-    </p>
-    <p>
-      Genom att klicka på &quot;Jag godkänner medlemsvillkoren&quot; bekräftar du att du har läst och
-      förstått våra villkor för behandling av personuppgifter och samtycker
-      till att dina uppgifter behandlas enligt beskrivningen ovan.
-    </p>
-    <button onClick={closeTermsModal} className="close-modal-btn">
-      Stäng
-    </button>
-  </div>
-</div>
+          <div className="modal-content">
+            <h2>Medlemsvillkor och GDPR</h2>
+            <p>
+              Genom att registrera dig hos MalFriAnn godkänner du att vi
+              behandlar dina personuppgifter enligt Dataskyddsförordningen
+              (GDPR). Vi värnar om din integritet och säkerheten för dina
+              uppgifter, och vi strävar efter att ge dig full insyn i hur vi
+              hanterar dessa uppgifter.
+            </p>
+            <p>
+              <br />
+              <strong>Vilka uppgifter samlar vi in?</strong>
+              <br />
+              Vi samlar in namn, kontaktuppgifter (e-post och telefonnummer),
+              personnummer, betalningsinformation och träningshistorik för att
+              kunna erbjuda våra tjänster och anpassa ditt medlemskap.
+            </p>
+            <p>
+              <br />
+              <strong>Hur används dina personuppgifter?</strong>
+              <br />
+              Dina uppgifter används för att skapa och hantera ditt
+              medlemskonto, säkerställa en trygg och anpassad
+              träningsupplevelse, ge information om medlemskap, hantera
+              betalningar och förbättra våra tjänster.
+            </p>
+            <p>
+              <br />
+              <strong>Hur lagrar och skyddar vi dina uppgifter?</strong>
+              <br />
+              Ditt data lagras säkert och är endast åtkomligt för behörig
+              personal. Vi använder industristandarder för att skydda din
+              information mot obehörig åtkomst och spridning.
+            </p>
+            <p>
+              <br />
+              <strong>Delning av personuppgifter</strong>
+              <br />
+              Vi delar inte dina uppgifter med tredje part, förutom när det
+              krävs enligt lag eller med betrodda tjänsteleverantörer för att
+              kunna erbjuda våra tjänster (t.ex. för betalningshantering). Dessa
+              är skyldiga att följa GDPR och får inte använda dina uppgifter för
+              andra ändamål.
+            </p>
+            <p>
+              <br />
+              <strong>Dina rättigheter</strong>
+              <br />
+              Du har rätt att begära tillgång till, rätta, radera, begränsa och
+              invända mot behandlingen av dina personuppgifter. Kontakta oss
+              gärna på
+              <em> MalFriAnn@gym.com</em> för frågor eller för att utöva dina
+              rättigheter.
+            </p>
+            <p>
+              Genom att klicka på &quot;Jag godkänner medlemsvillkoren&quot;
+              bekräftar du att du har läst och förstått våra villkor för
+              behandling av personuppgifter och samtycker till att dina
+              uppgifter behandlas enligt beskrivningen ovan.
+            </p>
+            <button onClick={closeTermsModal} className="close-modal-btn">
+              Stäng
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
