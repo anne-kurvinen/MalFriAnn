@@ -35,7 +35,7 @@ app.post('/api/login', (req, res) => {
   if (user) {
     res.status(200).json({ message: 'Inloggning lyckades' });
   } else {
-    res.status(401).json({ message: 'Felaktig e-postadress eller lösenord' });
+    res.status(401).json({ message: 'Felaktig e-postadress eller lösenord. Är du registrerad medlem, försök igen!' });
   }
 });
 
