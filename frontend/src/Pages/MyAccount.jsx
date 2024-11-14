@@ -24,7 +24,7 @@ const EditProfilePage = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/user'); // Hämta användardata från backend
+        const response = await axios.get('/api/myaccount'); // Hämta användardata från backend
         setFormData(response.data);
       } catch (error) {
         setError('Det gick inte att hämta användardata');
@@ -48,7 +48,7 @@ const EditProfilePage = () => {
     setSuccess(false);
 
     try {
-      const response = await axios.put('/api/user', formData); // Uppdatera användardata på servern
+      const response = await axios.put('/api/myaccount', formData); // Uppdatera användardata på servern
       setSuccess(true);
       console.log('Profilen uppdaterades:', response.data);
     } catch (error) {
@@ -66,7 +66,7 @@ const EditProfilePage = () => {
   const handleDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete('/api/user');
+      await axios.delete('/api/myaccount');
       console.log('Profil raderad');
       setShowDeleteModal(false);
     } catch (error) {
