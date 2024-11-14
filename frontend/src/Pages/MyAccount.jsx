@@ -24,7 +24,7 @@ const EditProfilePage = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/myaccount'); // Hämta användardata från backend
+        const response = await axios.get('/api/myaccount');
         setFormData(response.data);
       } catch (error) {
         setError('Det gick inte att hämta användardata');
