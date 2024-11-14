@@ -7,7 +7,7 @@ const EditProfilePage = () => {
     firstName: '',
     lastName: '',
     email: '',
-    personalId: '', // visas men kan inte ändras
+    personalId: '', // Read-only
     address: '',
     postcode: '',
     city: '',
@@ -24,15 +24,45 @@ const EditProfilePage = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/myaccount'); // Hämta användardata från backend
-        setFormData(response.data);
+  
+        // Get the token from localStorage
+        const token = localStorage.getItem('token'); 
+  
+        if (!token) {
+          setError('Ingen giltig token hittades. Logga in igen.');
+          return;
+        }
+  
+        // Send token in Authorization header
+        const response = await axios.get('/api/myaccount', {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        });
+
+  
+        if (response.data && response.data.firstname) {
+          setFormData({
+            firstName: response.data.firstname,  
+            lastName: response.data.lastname,    
+            email: response.data.email,
+            personalId: response.data.personalid, 
+            address: response.data.address,
+            postcode: response.data.postcode,
+            city: response.data.city,
+            phoneNumber: response.data.phonenumber, 
+            password: '',  
+          });
+        } else {
+          setError('Ingen användardata hittades.');
+        }
       } catch (error) {
         setError('Det gick inte att hämta användardata');
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchUserData();
   }, []);
 
@@ -48,7 +78,20 @@ const EditProfilePage = () => {
     setSuccess(false);
 
     try {
-      const response = await axios.put('/api/myaccount', formData); // Uppdatera användardata på servern
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+      if (!token) {
+        setError('Ingen giltig token hittades. Logga in igen.');
+        return;
+      }
+
+      // Send token in Authorization header for profile update
+      const response = await axios.put('/api/myaccount', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send token as Bearer token
+        },
+      });
+
       setSuccess(true);
       console.log('Profilen uppdaterades:', response.data);
     } catch (error) {
@@ -62,15 +105,29 @@ const EditProfilePage = () => {
     setSuccess(false);
   };
 
-  //Radera-funktion
+  // Delete user profile
   const handleDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete('/api/myaccount');
+      const token = localStorage.getItem('token'); // Retrieve token from localStorage
+
+      if (!token) {
+        setError('Ingen giltig token hittades. Logga in igen.');
+        return;
+      }
+
+      // Send token in Authorization header for deleting the profile
+      await axios.delete('/api/myaccount', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send token as Bearer token
+        },
+      });
+
       console.log('Profil raderad');
       setShowDeleteModal(false);
     } catch (error) {
       console.error('Det gick inte att radera profilen');
+      setError('Det gick inte att radera profilen');
     } finally {
       setLoading(false);
     }
@@ -78,126 +135,131 @@ const EditProfilePage = () => {
 
   return (
     <>
-    <h1 className="edit-profile-h1">Redigera profil</h1>
-    <div className="edit-profile-container">
-      {error && <div className="error-message">{error}</div>}
-
-      {success && (
-        <div className="popup-updated">
-          <div className="popup-content-updated">
-            <p className="popup-message-updated">Profilen uppdaterades!</p>
-            <button className="close-popup-updated" onClick={closePopup}>OK</button>
+      <h1 className="edit-profile-h1">Redigera profil</h1>
+      <div className="edit-profile-container">
+        {error && <div className="error-message">{error}</div>}
+  
+        {success && (
+          <div className="popup-updated">
+            <div className="popup-content-updated">
+              <p className="popup-message-updated">Profilen uppdaterades!</p>
+              <button className="close-popup-updated" onClick={closePopup}>OK</button>
+            </div>
           </div>
-        </div>
-      )}
-
-      <form className="edit-profile-form" onSubmit={handleSubmit}>
-        <div>
-          <label>Förnamn:</label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Efternamn:</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Personnummer:</label>
-          <div className="input-container">
-          <i className="fas fa-lock lock-icon"></i> {/* Låsikon */}
-          <input
-            type="text"
-            name="personalId"
-            value={formData.personalId}
-            readOnly // Fältet är skrivskyddat
-          />
-        </div>
-        </div>
-        <div>
-          <label>Adress:</label>
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Postnummer:</label>
-          <input
-            type="text"
-            name="address"
-            value={formData.postcode}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Stad:</label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Telefonnummer:</label>
-          <input
-            type="text"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Nytt lösenord:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-<div className="button-container">
-        <button className="update-btn" type="submit" disabled={loading}>
-          {loading ? 'Uppdaterar...' : 'Uppdatera profil'}
-        </button>
-        <button
-            className="delete-btn"
-            type="button"
-            onClick={() => setShowDeleteModal(true)}
-          >
-            Radera profil
-          </button>
-          </div>
-        </form>
+        )}
+  
+        {/* Only render the form if formData is valid */}
+        {formData && formData.firstName && formData.lastName && formData.email ? (
+          <form className="edit-profile-form" onSubmit={handleSubmit}>
+            <div>
+              <label>Förnamn:</label>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Efternamn:</label>
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Email:</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Personnummer:</label>
+              <div className="input-container">
+                <i className="fas fa-lock lock-icon"></i> {/* Låsikon */}
+                <input
+                  type="text"
+                  name="personalId"
+                  value={formData.personalId}
+                  readOnly // Read-only field
+                />
+              </div>
+            </div>
+            <div>
+              <label>Adress:</label>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Postnummer:</label>
+              <input
+                type="text"
+                name="postcode"
+                value={formData.postcode}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Stad:</label>
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Telefonnummer:</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Nytt lösenord:</label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="button-container">
+              <button className="update-btn" type="submit" disabled={loading}>
+                {loading ? 'Uppdaterar...' : 'Uppdatera profil'}
+              </button>
+              <button
+                className="delete-btn"
+                type="button"
+                onClick={() => setShowDeleteModal(true)}
+              >
+                Radera profil
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="error-message">Ingen användardata hittades.</div>
+        )}
       </div>
-
+  
       {showDeleteModal && (
         <div className="modal-overlay-delete">
           <div className="modal-delete">
@@ -209,6 +271,5 @@ const EditProfilePage = () => {
       )}
     </>
   );
-};
-
+}
 export default EditProfilePage;
