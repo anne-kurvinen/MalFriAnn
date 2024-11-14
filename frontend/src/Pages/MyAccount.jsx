@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './MyAccount.css';
+import axios from 'axios';
 
 const EditProfilePage = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ const EditProfilePage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
+<<<<<<< Updated upstream
     // Hämta användarens nuvarande uppgifter från backend och fylla i formData.
 
     // Simulerad hämtning av data:
@@ -33,8 +35,21 @@ const EditProfilePage = () => {
       city: 'Stockholm',
       phoneNumber: '0701234567',
       password: '', // Lämna lösenordet tomt för säkerhet
+=======
+    const fetchUserData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('/api/user'); // Hämta användardata från backend
+        setFormData(response.data);
+      } catch (error) {
+        setError('Det gick inte att hämta användardata');
+      } finally {
+        setLoading(false);
+      }
+>>>>>>> Stashed changes
     };
-    setFormData(userData);
+
+    fetchUserData();
   }, []);
 
   const handleChange = (e) => {
@@ -48,22 +63,33 @@ const EditProfilePage = () => {
     setError('');
     setSuccess(false);
 
-    // Skicka uppdaterade data till servern
-    setTimeout(() => {
-      console.log('Profilen uppdaterades med data:', formData);
-      setLoading(false);
+    try {
+      const response = await axios.put('/api/user', formData); // Uppdatera användardata på servern
       setSuccess(true);
-    }, 1000);
+      console.log('Profilen uppdaterades:', response.data);
+    } catch (error) {
+      setError('Det gick inte att uppdatera din profil');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const closePopup = () => {
     setSuccess(false);
   };
 
-  const handleDelete = () => {
-    console.log("Profil raderad");
-    // Kod från för att radera profilen från backend här.
-    setShowDeleteModal(false); // Stänger modalen efter radering.
+  //Radera-funktion
+  const handleDelete = async () => {
+    try {
+      setLoading(true);
+      await axios.delete('/api/user');
+      console.log('Profil raderad');
+      setShowDeleteModal(false);
+    } catch (error) {
+      console.error('Det gick inte att radera profilen');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
