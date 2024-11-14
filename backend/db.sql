@@ -82,16 +82,21 @@ INSERT INTO memberShipCategories (price, title, description) VALUES
   
 SELECT * FROM memberShipCategories;
 
-INSERT INTO notes (member_id, title, description)
-    VALUES (3, 'Note 3', 'This is a note for member 3');
-
-SELECT * FROM notes;
-
 
 /* SKAPAR ETT MEDLEMSSKAPSNUMMER */
 CREATE TABLE memberShips (
   id serial PRIMARY KEY,
   memberShipCategories_id INTEGER,
-  member_id INTEGER,
-  FOREIGN KEY(memberShipCategories_id) FOREIGN KEY(member_id) REFERENCES memberShips(id) 
+  title VARCHAR(100) NOT NULL,
+  member_id INTEGER
 );
+
+INSERT INTO memberShips (memberShipCategories_id, title, member_id) VALUES 
+  ('1', 'Basic', '1'),
+  ('2', 'Premium', '2'),
+  ('3', 'VIP', '3'),
+  ('3', 'VIP', '4'),
+  ('2', 'Premium', '5');
+  
+
+SELECT * FROM memberShips;
