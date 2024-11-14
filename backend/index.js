@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
+const { v4: uuidv4 } = require('uuid');
+const validateToken = require('./tokenValidation');
 
 dotenv.config();
 
@@ -19,7 +21,10 @@ app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(path.resolve(), 'dist')));
 
+
+
 // Inloggningsruta
+
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -28,7 +33,17 @@ app.post('/api/login', async (req, res) => {
     const user = result.rows[0];
 
     if (user) {
-      res.status(200).json({ message: 'Inloggning lyckades' });
+      // Generate a unique token
+      const token = uuidv4();
+
+      // Insert the token into the 'tokens' table, linking it to the member_id
+      await pool.query(
+        'INSERT INTO tokens (member_id, token) VALUES ($1, $2)',  
+        [user.id, token]
+      );
+
+      // Send the token back to the client
+      res.status(200).json({ message: 'Login successful', token: token });
     } else {
       res.status(401).json({ message: 'Felaktig e-postadress eller lösenord. Är du registrerad medlem, försök igen!' });
     }
@@ -86,6 +101,7 @@ app.post('/api/members', async (req, res) => {
 });
 
 // Get member by email
+/*
 app.get('/api/members/:email', async (req, res) => {
   const { email } = req.params;
 
@@ -102,65 +118,211 @@ app.get('/api/members/:email', async (req, res) => {
     console.error('Error fetching user:', error);
     res.status(500).send('Server error');
   }
-});
+}); */
 
-// Hämta medlemsinformation för MyAccount.jsx
-app.get('/api/myaccount', async (req, res) => {
-  const userId = req.user.id;  // Kontrollera att användaren har ett id
+app.get('/api/members/:email', validateToken, async (req, res) => {
+  const { email } = req.params;
+  const { memberId } = req;  // Extracted from the token
+
   try {
+    // Fetch member data based on email and token
     const result = await pool.query(
-      'SELECT id, firstName, lastName, email, personalId, address, postcode, city, phoneNumber, memberShipCategories_id FROM members WHERE id = $1',
-      [userId]
+      'SELECT * FROM members WHERE email = $1 AND id = $2', 
+      [email, memberId]
     );
-    if (result.rows.length > 0) {
-      res.json(result.rows[0]);
+    const user = result.rows[0];
+
+    if (user) {
+      res.status(200).json(user);
     } else {
       res.status(404).json({ message: 'Användare inte hittad' });
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Fel vid hämtning av användardata' });
+    console.error('Error fetching user:', error);
+    res.status(500).send('Server error');
   }
 });
 
-// Uppdatering av medlemsprofil
+
+
+// Get all notes
+app.get('/api/notes', async (_request, response) => {
+  try {
+    const result = await pool.query(`
+      SELECT notes.*, members.name AS member_name 
+      FROM notes 
+      LEFT JOIN members ON notes.member_id = members.id
+    `);
+    response.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Server Error');
+  }
+});
+
+
+// Add a new note
+app.post('/api/notes', async (req, response) => {
+  const { title, description, member_id } = req.body;
+  try {
+    const result = await pool.query(`
+      INSERT INTO notes (title, description, member_id) 
+      VALUES ($1, $2, $3) 
+      RETURNING *
+    `, [title, description, member_id]);
+    response.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Server Error');
+  }
+});
+
+// Update note
+app.put('/api/notes/:id', async (req, response) => {
+  const { id } = req.params;
+  const { title, description, member_id } = req.body;
+  try {
+    const result = await pool.query(`
+      UPDATE notes 
+      SET title = $1, description = $2, member_id = $3 
+      WHERE id = $4 
+      RETURNING *
+    `, [title, description, member_id, id]);
+    response.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Server Error');
+  }
+});
+
+// Delete a note
+app.delete('/api/notes/:id', async (req, response) => {
+  const { id } = req.params;
+  try {
+    await pool.query('DELETE FROM notes WHERE id = $1', [id]);
+    response.status(204).send();
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Server Error');
+  }
+});
+
+// Add a new route to handle fetching user data
+app.get('/api/myaccount', async (req, res) => {
+  const token = req.headers['authorization']?.split(' ')[1]; // Extract token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token saknas. Vänligen logga in.' });
+  }
+
+  try {
+    // Find the member linked to the token
+    const result = await pool.query('SELECT member_id FROM tokens WHERE token = $1', [token]);
+    const tokenData = result.rows[0];
+
+    if (!tokenData) {
+      return res.status(401).json({ message: 'Ogiltig token. Vänligen logga in igen.' });
+    }
+
+    // Fetch the member data based on the member_id
+    const memberResult = await pool.query('SELECT * FROM members WHERE id = $1', [tokenData.member_id]);
+    const member = memberResult.rows[0];
+
+    if (member) {
+      res.status(200).json(member); // Send member data
+    } else {
+      res.status(404).json({ message: 'Användare inte hittad' });
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// PUT endpoint for updating the profile
 app.put('/api/myaccount', async (req, res) => {
-  const userId = req.user.id; 
-  const { firstName, lastName, email, personalId, address, postcode, city, phoneNumber, password } = req.body;
+  const token = req.headers['authorization']?.split(' ')[1];
 
-  const query = `
-    UPDATE members 
-    SET firstName = $1, lastName = $2, email = $3, personalId = $4, address = $5, postcode = $6, city = $7, phoneNumber = $8, password = $9
-    WHERE id = $10
-    RETURNING *;
-  `;
-
-  const values = [firstName, lastName, email, personalId, address, postcode, city, phoneNumber, password, userId];
+  if (!token) {
+    return res.status(401).json({ message: 'Token saknas. Vänligen logga in.' });
+  }
 
   try {
-    const result = await pool.query(query, values);
-    if (result.rows.length > 0) {
-      res.json({ message: 'Profilen uppdaterades', user: result.rows[0] });
+    // Find the member linked to the token
+    const result = await pool.query('SELECT member_id FROM tokens WHERE token = $1', [token]);
+    const tokenData = result.rows[0];
+
+    if (!tokenData) {
+      return res.status(401).json({ message: 'Ogiltig token. Vänligen logga in igen.' });
+    }
+
+    // Fetch the member data based on the member_id
+    const memberResult = await pool.query('SELECT * FROM members WHERE id = $1', [tokenData.member_id]);
+    const member = memberResult.rows[0];
+
+    if (!member) {
+      return res.status(404).json({ message: 'Användare inte hittad' });
+    }
+
+    // Get the updated data from the request body
+    const { firstName, lastName, email, address, postcode, city, phoneNumber, password } = req.body;
+
+    // Update the user's data in the members table
+    const updateResult = await pool.query(
+      'UPDATE members SET firstName = $1, lastName = $2, email = $3, address = $4, postcode = $5, city = $6, phoneNumber = $7, password = $8 WHERE id = $9 RETURNING *',
+      [firstName, lastName, email, address, postcode, city, phoneNumber, password, tokenData.member_id]
+    );
+
+    const updatedMember = updateResult.rows[0];
+
+    if (updatedMember) {
+      res.status(200).json(updatedMember); // Send the updated member data
     } else {
-      res.status(404).json({ message: 'Användare inte hittad' });
+      res.status(400).json({ message: 'Det gick inte att uppdatera profilen' });
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Fel vid uppdatering av användardata' });
+    console.error('Error updating user data:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Radera användarprofil
+// DELETE Endpoint to delete user account
 app.delete('/api/myaccount', async (req, res) => {
-  const userId = req.user.id; 
+  const token = req.headers['authorization']?.split(' ')[1]; // Extract token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token saknas. Vänligen logga in.' });
+  }
+
   try {
-    await pool.query('DELETE FROM members WHERE id = $1', [userId]);
-    res.json({ message: 'Profilen raderades' });
+    // Find the member linked to the token
+    const result = await pool.query('SELECT member_id FROM tokens WHERE token = $1', [token]);
+    const tokenData = result.rows[0];
+
+    if (!tokenData) {
+      return res.status(401).json({ message: 'Ogiltig token. Vänligen logga in igen.' });
+    }
+
+    // Fetch the member data based on the member_id
+    const memberResult = await pool.query('SELECT * FROM members WHERE id = $1', [tokenData.member_id]);
+    const member = memberResult.rows[0];
+
+    if (!member) {
+      return res.status(404).json({ message: 'Användare inte hittad' });
+    }
+
+    // Delete the user's account from the members table
+    await pool.query('DELETE FROM members WHERE id = $1', [tokenData.member_id]);
+
+    await pool.query('DELETE FROM tokens WHERE token = $1', [token]);
+
+    res.status(200).json({ message: 'Profilen raderades framgångsrikt.' });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Fel vid radering av profil' });
+    console.error('Error deleting user data:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 app.use(express.static(path.join(path.resolve(), 'dist')));
 

@@ -100,3 +100,13 @@ INSERT INTO memberShips (memberShipCategories_id, title, member_id) VALUES
   
 
 SELECT * FROM memberShips;
+
+
+
+/* SKAPAR TOKENS */
+CREATE TABLE tokens (
+  id SERIAL PRIMARY KEY,
+  member_id INTEGER NOT NULL REFERENCES members(id) ON DELETE CASCADE,
+  token TEXT UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -11,10 +11,12 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false); 
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     try {
       const response = await fetch("http://localhost:3000/api/login", {
@@ -28,6 +30,8 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem("token", data.token); // Spara token i localStorage
+
         setEmail("");
         setPassword("");
         setError("");
@@ -42,6 +46,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
     }
   };
 
+  
   const handleCancel = () => {
     setEmail("");
     setPassword("");
@@ -61,8 +66,9 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
       <form className="modal-form" onSubmit={handleSubmit}>
         {error && <div className="error-message">{error}</div>}
         <div>
-          <label className='modal-label' htmlFor="email">Email:</label>
-          <input className='modal-input'
+          <label className="modal-label" htmlFor="email">Email:</label>
+          <input
+            className="modal-input"
             type="email"
             id="email"
             value={email}
@@ -71,10 +77,11 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
           />
         </div>
         <div>
-          <label className='modal-label' htmlFor="password">Password:</label>
+          <label className="modal-label" htmlFor="password">Password:</label>
           <div className="password-input-container">
-            <input className='modal-input'
-              type={!showPassword ? "text" : "password"}
+            <input
+              className="modal-input"
+              type={showPassword ? "text" : "password"} 
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -83,7 +90,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
             <button
               type="button"
               className="password-toggle-button"
-              onClick={() => setShowPassword(!showPassword)}
+              onClick={() => setShowPassword(!showPassword)} 
             >
               <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"}></i>
             </button>
@@ -93,11 +100,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
         <p className="modal-text">
           {" "}
           Har du inget medlemskonto?{" "}
-          <Link
-            to="/registration"
-            className="modal-text"
-            onClick={onRequestClose}
-          >
+          <Link to="/registration" className="modal-text" onClick={onRequestClose}>
             Registrera dig här
           </Link>{" "}
         </p>
