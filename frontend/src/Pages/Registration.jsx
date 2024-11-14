@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MembershipComponent from "../components/membership/membershipComponent.jsx";
+import createMember from "../paths/memberPaths"; // Import the function for sending data to backend
 import "./Registration-style.css";
 import { useNavigate } from "react-router-dom";
 
@@ -53,16 +54,21 @@ const RegistrationPage = () => {
     setError("");
     setSuccess(false);
 
-    setTimeout(() => {
-      console.log(
-        "Simulerad registrering med data:",
-        formData,
-        "Medlemskap:",
-        selectedMembership
-      );
+    // Prepare member data to be sent
+    const memberData = {
+      ...formData,
+      memberShipCategories_id: selectedMembership ? selectedMembership.id : null, // include membership ID
+    };
+
+    // Use createMember function to send data to backend
+    try {
+      await createMember(memberData);  // Send the form data to backend for insertion
       setLoading(false);
       setSuccess(true);
-    }, 1000);
+    } catch {
+      setError("An error occurred while creating the member.");
+      setLoading(false);
+    }
   };
 
   const closePopup = () => {
@@ -90,7 +96,6 @@ const RegistrationPage = () => {
   const closeTermsModal = () => {
     setShowTermsModal(false);
   };
-
   return (
     <div className="registration-container">
       <h1>Registrering av konto</h1>
