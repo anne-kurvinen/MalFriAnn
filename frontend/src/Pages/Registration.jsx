@@ -117,8 +117,8 @@ const RegistrationPage = () => {
       {selectedMembership && (
         <div className="selected-membership-container">
           <p>
-            Du har valt: <strong>{selectedMembership.name}</strong> -{" "}
-            <span className="price">{selectedMembership.price}</span>
+            Du har valt: <strong>{selectedMembership.title}</strong> -{" "}
+            <span className="price">{selectedMembership.price}/month</span>
           </p>
         </div>
       )}
