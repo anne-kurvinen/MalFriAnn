@@ -21,21 +21,6 @@ const EditProfilePage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
-<<<<<<< Updated upstream
-    // Hämta användarens nuvarande uppgifter från backend och fylla i formData.
-
-    // Simulerad hämtning av data:
-    const userData = {
-      firstName: 'Exempel',
-      lastName: 'Användare',
-      email: 'exempel@anvandare.com',
-      personalId: '123456-7890', // Personnummer ska visas men inte vara redigerbart
-      address: 'Exempelgatan 1',
-      postcode: '43011',
-      city: 'Stockholm',
-      phoneNumber: '0701234567',
-      password: '', // Lämna lösenordet tomt för säkerhet
-=======
     const fetchUserData = async () => {
       try {
         setLoading(true);
@@ -46,7 +31,6 @@ const EditProfilePage = () => {
       } finally {
         setLoading(false);
       }
->>>>>>> Stashed changes
     };
 
     fetchUserData();
