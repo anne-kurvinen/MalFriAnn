@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './MyAccount.css';
 
 const EditProfilePage = () => {
@@ -29,7 +29,7 @@ const EditProfilePage = () => {
       email: 'exempel@anvandare.com',
       personalId: '123456-7890', // Personnummer ska visas men inte vara redigerbart
       address: 'Exempelgatan 1',
-      postcode: '430 11',
+      postcode: '43011',
       city: 'Stockholm',
       phoneNumber: '0701234567',
       password: '', // Lämna lösenordet tomt för säkerhet
