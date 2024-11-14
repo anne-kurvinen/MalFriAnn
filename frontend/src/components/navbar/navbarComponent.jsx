@@ -38,7 +38,10 @@ function NavbarComponent() {
               </ul>
             </li>
             {isLoggedIn && (
+              <ul>
               <li><Link to="/myaccount"><i className="fas fa-user"></i> My Account</Link></li>
+              <li><Link to="/notes"><i className="fas fa-notes"></i> My notes</Link></li>
+              </ul>
             )}
           </ul>
         </div>
