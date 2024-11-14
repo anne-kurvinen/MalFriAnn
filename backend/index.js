@@ -19,23 +19,22 @@ app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(path.resolve(), 'dist')));
 
-// Simulerad användardatabas
-const users = [
-  {
-    email: 'user@example.com',
-    password: 'password'
-  }
-];
-
 // Inloggningsruta
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
-  const user = users.find(u => u.email === email && u.password === password);
 
-  if (user) {
-    res.status(200).json({ message: 'Inloggning lyckades' });
-  } else {
-    res.status(401).json({ message: 'Felaktig e-postadress eller lösenord. Är du registrerad medlem, försök igen!' });
+  try {
+    const result = await pool.query('SELECT * FROM members WHERE email = $1 AND password = $2', [email, password]);
+    const user = result.rows[0];
+
+    if (user) {
+      res.status(200).json({ message: 'Inloggning lyckades' });
+    } else {
+      res.status(401).json({ message: 'Felaktig e-postadress eller lösenord. Är du registrerad medlem, försök igen!' });
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).send('Server error');
   }
 });
 
@@ -82,6 +81,25 @@ app.post('/api/members', async (req, res) => {
     res.status(201).json(result.rows[0]);
   } catch (error) {
     console.error('Error inserting member:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+// Get member by email
+app.get('/api/members/:email', async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const result = await pool.query('SELECT email, password FROM members WHERE email = $1', [email]);
+    const user = result.rows[0];
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'Användare inte hittad' });
+    }
+  } catch (error) {
+    console.error('Error fetching user:', error);
     res.status(500).send('Server error');
   }
 });
