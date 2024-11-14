@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-
+const bodyParser = require('body-parser');
 
 dotenv.config();
 
@@ -13,10 +13,31 @@ const pool = new Pool({
   connectionString: process.env.PGURI,
 });
 
-
+// Middleware
+app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(path.resolve(), 'dist')));
+
+// Simulerad användardatabas
+const users = [
+  {
+    email: 'user@example.com',
+    password: 'password'
+  }
+];
+
+// Inloggningsruta
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body;
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (user) {
+    res.status(200).json({ message: 'Inloggning lyckades' });
+  } else {
+    res.status(401).json({ message: 'Felaktig e-postadress eller lösenord. Är du registrerad medlem, försök igen!' });
+  }
+});
 
 // Get membership categories
 app.get('/api/membership-categories', async (_req, res) => {
@@ -29,8 +50,7 @@ app.get('/api/membership-categories', async (_req, res) => {
   }
 });
 
-
-//Post member
+// Post member
 app.post('/api/members', async (req, res) => {
   const {
     firstName,
@@ -66,10 +86,7 @@ app.post('/api/members', async (req, res) => {
   }
 });
 
-
-
 app.use(express.static(path.join(path.resolve(), 'dist')));
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
