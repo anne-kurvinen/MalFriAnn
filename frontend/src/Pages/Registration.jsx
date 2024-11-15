@@ -25,6 +25,8 @@ const RegistrationPage = () => {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const navigate = useNavigate();
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,11 +39,13 @@ const RegistrationPage = () => {
 
   const validateForm = () => {
     if (formData.password !== formData.confirmPassword) {
-      setError("Lösenorden matchar inte.");
+      setPopupMessage("Lösenorden matchar inte.");
+        setShowPopup(true);
       return false;
     }
     if (!acceptedTerms) {
-      setError("Du måste godkänna användarvillkoren");
+      setPopupMessage("Du måste godkänna användarvillkoren.");
+        setShowPopup(true);
       return false;
     }
     return true;
@@ -317,6 +321,20 @@ const RegistrationPage = () => {
           </div>
         </div>
       )}
+
+{showPopup && (
+    <div className="popup-overlay-password">
+        <div className="popup-container-password">
+            <p>{popupMessage}</p>
+            <button
+                className="popup-button-password"
+                onClick={() => setShowPopup(false)}
+            >
+                OK
+            </button>
+        </div>
+    </div>
+)}
     </div>
   );
 };
