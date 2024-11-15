@@ -11,7 +11,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(true); 
 
 
   const handleSubmit = async (e) => {
@@ -51,7 +51,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
     setEmail("");
     setPassword("");
     setError("");
-    onRequestClose();
+    
   };
 
   return (
@@ -81,7 +81,7 @@ const LoginModal = ({ isOpen, onRequestClose, onLoginSuccess }) => {
           <div className="password-input-container">
             <input
               className="modal-input"
-              type={showPassword ? "text" : "password"} 
+              type={showPassword ? "password" : "text"} 
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

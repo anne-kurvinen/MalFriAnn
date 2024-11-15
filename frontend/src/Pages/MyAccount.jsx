@@ -56,7 +56,7 @@ const EditProfilePage = () => {
         } else {
           setError('Ingen användardata hittades.');
         }
-      } catch (error) {
+      } catch {
         setError('Det gick inte att hämta användardata');
       } finally {
         setLoading(false);
@@ -94,15 +94,12 @@ const EditProfilePage = () => {
 
       setSuccess(true);
       console.log('Profilen uppdaterades:', response.data);
-    } catch (error) {
+      window.alert('Dina ändringar har uppdaterats!');
+    } catch {
       setError('Det gick inte att uppdatera din profil');
     } finally {
       setLoading(false);
     }
-  };
-
-  const closePopup = () => {
-    setSuccess(false);
   };
 
   // Delete user profile
@@ -124,8 +121,10 @@ const EditProfilePage = () => {
       });
 
       console.log('Profil raderad');
-      setShowDeleteModal(false);
-    } catch (error) {
+      localStorage.removeItem('token'); // Remove token from localStorage
+      window.alert('Ditt konto har raderats.');
+      window.location.href = '/'; // Redirect to home page
+    } catch {
       console.error('Det gick inte att radera profilen');
       setError('Det gick inte att radera profilen');
     } finally {
@@ -143,7 +142,7 @@ const EditProfilePage = () => {
           <div className="popup-updated">
             <div className="popup-content-updated">
               <p className="popup-message-updated">Profilen uppdaterades!</p>
-              <button className="close-popup-updated" onClick={closePopup}>OK</button>
+              
             </div>
           </div>
         )}
