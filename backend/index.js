@@ -6,6 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const validateToken = require('./tokenValidation');
+const compression = require('compression'); // Import compression
 
 dotenv.config();
 
@@ -16,15 +17,13 @@ const pool = new Pool({
 });
 
 // Middleware
+app.use(compression()); // Enable gzip compression
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(path.resolve(), 'dist')));
 
-
-
 // Inloggningsruta
-
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -101,25 +100,6 @@ app.post('/api/members', async (req, res) => {
 });
 
 // Get member by email
-/*
-app.get('/api/members/:email', async (req, res) => {
-  const { email } = req.params;
-
-  try {
-    const result = await pool.query('SELECT email, password FROM members WHERE email = $1', [email]);
-    const user = result.rows[0];
-
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json({ message: 'Användare inte hittad' });
-    }
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).send('Server error');
-  }
-}); */
-
 app.get('/api/members/:email', validateToken, async (req, res) => {
   const { email } = req.params;
   const { memberId } = req;  // Extracted from the token
@@ -143,8 +123,6 @@ app.get('/api/members/:email', validateToken, async (req, res) => {
   }
 });
 
-
-
 // Get all notes
 app.get('/api/notes', async (_request, response) => {
   try {
@@ -159,7 +137,6 @@ app.get('/api/notes', async (_request, response) => {
     response.status(500).send('Server Error');
   }
 });
-
 
 // Add a new note
 app.post('/api/notes', async (req, response) => {
@@ -322,7 +299,6 @@ app.delete('/api/myaccount', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
 
 app.use(express.static(path.join(path.resolve(), 'dist')));
 
