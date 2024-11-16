@@ -1,22 +1,41 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios'; 
 import NoteModal from '../noteModal/noteModal';
-import { fetchAllNotes, createNote, updateNote, deleteNote } from '../../paths/notePaths';
 import './Notes.css';
 
 function Notes() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [notes, setNotes] = useState([]);
-  const [selectedNote, setSelectedNote] = useState(null); 
+  const [notes, setNotes] = useState([]); // Notes state
+  const [loading, setLoading] = useState(false); // Track loading state
+  const [error, setError] = useState(''); // For error messages
 
-
+  // Open and close the modal for adding new notes
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Fetch all notes when component mounts
+  // Fetch all notes for the logged-in user
   useEffect(() => {
     const loadNotes = async () => {
-      const fetchedNotes = await fetchAllNotes();
-      setNotes(fetchedNotes);
+      try {
+        setLoading(true); // Set loading to true when starting the fetch
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setError('No valid token found. Please log in again.');
+          return;
+        }
+
+        const response = await axios.get('/api/notes', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setNotes(response.data);
+      } catch {
+        setError('Failed to load notes. Please try again later.');
+      } finally {
+        setLoading(false); // Set loading to false when the fetch is done
+      }
     };
 
     loadNotes();
@@ -25,76 +44,86 @@ function Notes() {
   // Add a new note
   const addNote = async (note) => {
     try {
-      const newNote = await createNote(note); 
-      setNotes([...notes, newNote]); 
-      closeModal();
-    } catch (error) {
-      console.error('Error creating note:', error);
-    }
-  };
+      setLoading(true); // Set loading to true while adding the note
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No valid token found. Please log in again.');
+        return;
+      }
 
-  // Update an existing note
-  const handleUpdateNote = async (updatedNote) => {
-    try {
-      const updated = await updateNote(updatedNote.id, updatedNote); 
-      setNotes(notes.map(note => note.id === updated.id ? updated : note)); 
-      closeModal();
+      const response = await axios.post('/api/notes', note, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setNotes([...notes, response.data]); // Add new note to the list
     } catch (error) {
-      console.error('Error updating note:', error);
+      setError('Failed to create note.');
+      console.error('Error creating note:', error);
+    } finally {
+      setLoading(false); // Set loading to false after adding the note
     }
   };
 
   // Delete a note
   const handleDeleteNote = async (id) => {
     try {
-      await deleteNote(id); 
-      setNotes(notes.filter(note => note.id !== id)); 
+      setLoading(true); // Set loading to true while deleting the note
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No valid token found. Please log in again.');
+        return;
+      }
+
+      await axios.delete(`/api/notes/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setNotes(notes.filter(note => note.id !== id)); // Remove deleted note from the list
     } catch (error) {
+      setError('Failed to delete note.');
       console.error('Error deleting note:', error);
+    } finally {
+      setLoading(false); // Set loading to false after deleting the note
     }
-  };
-
- 
-  const handleSaveNote = (note) => {
-    if (selectedNote) {
-      handleUpdateNote(note); 
-    } else {
-      addNote(note); 
-    }
-  };
-
-  
-  const openEditModal = (note) => {
-    setSelectedNote(note); 
-    openModal(); 
   };
 
   return (
     <div className="note-container">
       <h2>Skriv ner dina träningsresultat</h2>
       <p> - ett smidigare sätt att hålla koll på din utveckling</p>
-      
+
       <div className="note-content">
         <h2>Anteckningar:</h2>
-        <button className="add-btn" onClick={openModal}>Lägg till +</button>
 
-        <div className="notes-list">
-          {notes.map(note => (
-            <div key={note.id} className="note">
-              <h3>{note.title}</h3>
-              <p>{note.description}</p>
-              <button onClick={() => openEditModal(note)}>Redigera</button>
-              <button onClick={() => handleDeleteNote(note.id)}>Ta bort</button>
+        {loading ? (
+          <div>Loading...</div> 
+        ) : (
+          <>
+            {error && <div className="error-message">{error}</div>} 
+
+            <button className="add-btn" onClick={openModal}>Lägg till +</button>
+
+            <div className="notes-list">
+              {notes.map(note => (
+                <div key={note.id} className="note">
+                  <h3>{note.title}</h3>
+                  <p>{note.description}</p>
+                  <button onClick={() => handleDeleteNote(note.id)}>Ta bort</button>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
 
       <NoteModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        onSave={handleSaveNote}
-        selectedNote={selectedNote} 
+        onSave={addNote}  
       />
     </div>
   );
