@@ -285,7 +285,7 @@ const RegistrationPage = () => {
               <br />
               <strong>Hur lagrar och skyddar vi dina uppgifter?</strong>
               <br />
-              Ditt data lagras säkert och är endast åtkomligt för behörig
+              Din data lagras säkert och är endast åtkomligt för behörig
               personal. Vi använder industristandarder för att skydda din
               information mot obehörig åtkomst och spridning.
             </p>
