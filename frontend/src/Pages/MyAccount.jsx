@@ -19,6 +19,7 @@ const EditProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -94,7 +95,7 @@ const EditProfilePage = () => {
 
       setSuccess(true);
       console.log('Profilen uppdaterades:', response.data);
-      window.alert('Dina ändringar har uppdaterats!');
+      setSuccessMessage('Dina ändringar har uppdaterats!');
     } catch {
       setError('Det gick inte att uppdatera din profil');
     } finally {
@@ -134,6 +135,18 @@ const EditProfilePage = () => {
 
   return (
     <>
+{success && (
+  <div className="popup-sucess">
+    <div className="popup-content-sucess">
+      <p className="popup-message-sucess">{successMessage || 'Dina ändringar har uppdaterats!'}</p>
+      <button className="close-popup-sucess" onClick={() => setSuccess(false)}>
+        OK
+      </button>
+    </div>
+  </div>
+)}
+
+
       <h1 className="edit-profile-h1">Redigera profil</h1>
       <div className="edit-profile-container">
         {error && <div className="error-message">{error}</div>}

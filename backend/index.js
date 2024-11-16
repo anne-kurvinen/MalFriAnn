@@ -5,6 +5,8 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
+const validateToken = require('./tokenValidation');
+const compression = require('compression'); // Import compression
 
 dotenv.config();
 
@@ -15,15 +17,13 @@ const pool = new Pool({
 });
 
 // Middleware
+app.use(compression()); // Enable gzip compression
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(path.resolve(), 'dist')));
 
-
-
 // Inloggningsruta
-
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -143,7 +143,6 @@ app.get('/api/notes', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
 
 // Add a new note
 app.post('/api/notes', async (req, res) => {
@@ -336,7 +335,6 @@ app.delete('/api/myaccount', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
 
 app.use(express.static(path.join(path.resolve(), 'dist')));
 

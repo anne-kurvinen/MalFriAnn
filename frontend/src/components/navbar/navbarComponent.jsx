@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import './NavbarComponent.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LoginModal from '../logIn/LoginModal';
 
 function NavbarComponent() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
@@ -24,6 +25,8 @@ function NavbarComponent() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     // Lägg till eventuell ytterligare utloggningslogik här, t.ex. rensa token från localStorage
+    window.alert('Nu är utloggad från ditt konto');
+    navigate('/'); // Navigera till startsidan
   };
 
   return (
