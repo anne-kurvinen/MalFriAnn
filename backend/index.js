@@ -5,7 +5,6 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
-const validateToken = require('./tokenValidation');
 const compression = require('compression'); // Import compression
 
 dotenv.config();
