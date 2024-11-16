@@ -7,7 +7,7 @@ services:
     environment:
       - PGURI=postgres://postgres:secret@database/postgres
     ports:
-      - "3000:3000"
+      - "3020:3000"
   database:
     environment:
       - POSTGRES_PASSWORD=secret
