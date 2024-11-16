@@ -8,7 +8,6 @@ import './App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const Registration = lazyWithPreload(() => import("./pages/Registration"));
-const Home = lazy(() => import("./pages/Home"));
 const OmOss = lazyWithPreload(() => import("./pages/OmOss"));
 const Inställningar = lazy(() => import("./pages/Inställningar"));
 const GymInfo = lazyWithPreload(() => import('./components/gymInfo/gymInfo.jsx'));
@@ -30,7 +29,6 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<StartPage />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<OmOss />} />
           <Route path="/settings" element={<Inställningar />} />
           <Route path="/registration" element={<Registration />} />
