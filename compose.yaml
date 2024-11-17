@@ -1,13 +1,4 @@
 services:
-  frontend:
-    build: frontend
-    depends_on:
-      database:
-        condition: service_healthy
-    environment:
-      - PGURI=postgres://postgres:secret@database/postgres
-    ports:
-      - "3000:3000"
   backend:
     build: backend
     depends_on:
