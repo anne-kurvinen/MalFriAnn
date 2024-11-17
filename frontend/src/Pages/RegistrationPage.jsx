@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MembershipComponent from "../components/membership/membershipComponent.jsx";
-import createMember from "../paths/memberPaths"; // Import the function for sending data to backend
+import createMember from "../paths/memberPaths.js"; // Import the function for sending data to backend
 import "./Registration-style.css";
 import { useNavigate } from "react-router-dom";
 

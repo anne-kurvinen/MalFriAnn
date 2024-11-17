@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './NavbarComponent.css';
+import './navbarComponent.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginModal from '../logIn/LoginModal';
