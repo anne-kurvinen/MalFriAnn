@@ -99,51 +99,6 @@ app.post('/api/members', async (req, res) => {
   }
 });
 
-// Get member by email
-/*
-app.get('/api/members/:email', async (req, res) => {
-  const { email } = req.params;
-
-  try {
-    const result = await pool.query('SELECT email, password FROM members WHERE email = $1', [email]);
-    const user = result.rows[0];
-
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json({ message: 'Användare inte hittad' });
-    }
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).send('Server error');
-  }
-}); */
-
-app.get('/api/members/:email', validateToken, async (req, res) => {
-  const { email } = req.params;
-  const { memberId } = req;  // Extracted from the token
-
-  try {
-    // Fetch member data based on email and token
-    const result = await pool.query(
-      'SELECT * FROM members WHERE email = $1 AND id = $2', 
-      [email, memberId]
-    );
-    const user = result.rows[0];
-
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json({ message: 'Användare inte hittad' });
-    }
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-
-
 // Get all notes
 app.get('/api/notes', async (_request, response) => {
   try {
