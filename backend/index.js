@@ -99,18 +99,47 @@ app.post('/api/members', async (req, res) => {
   }
 });
 
-// Get all notes
-app.get('/api/notes', async (_request, response) => {
+// Get all notes for the logged-in member
+app.get('/api/notes', async (req, res) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+
+  if (!token) {
+    console.log('No token provided');
+    return res.status(401).json({ message: 'Token saknas. Vänligen logga in.' });
+  }
+
   try {
-    const result = await pool.query(`
-      SELECT notes.*, members.name AS member_name 
-      FROM notes 
-      LEFT JOIN members ON notes.member_id = members.id
-    `);
-    response.json(result.rows);
+    // Query to check if token is valid
+    const result = await pool.query('SELECT member_id FROM tokens WHERE token = $1', [token]);
+    const tokenData = result.rows[0];
+
+    if (!tokenData) {
+      return res.status(401).json({ message: 'Ogiltig token. Vänligen logga in igen.' });
+    }
+
+    const member_id = tokenData.member_id;
+
+    // Query to get the notes for the member
+    const noteResult = await pool.query(
+      `
+      SELECT 
+        notes.*, 
+        CONCAT(members.firstName, ' ', members.lastName) AS member_name
+      FROM 
+        notes
+      LEFT JOIN 
+        members ON notes.member_id = members.id
+      WHERE 
+        notes.member_id = $1
+      `,
+      [member_id]
+    );
+
+    // Respond with the notes
+    res.json(noteResult.rows);
   } catch (error) {
-    console.error(error);
-    response.status(500).send('Server Error');
+    console.error('Error fetching notes:', error);
+    res.status(500).send('Server Error');
   }
 });
 
