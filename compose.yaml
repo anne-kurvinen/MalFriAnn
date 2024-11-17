@@ -8,6 +8,7 @@ services:
       - PGURI=postgres://postgres:secret@database/postgres
     ports:
       - "3000:3000"
+
   database:
     environment:
       - POSTGRES_PASSWORD=secret
@@ -17,3 +18,12 @@ services:
     image: postgres
     volumes:
       - ./data:/var/lib/postgresql/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
