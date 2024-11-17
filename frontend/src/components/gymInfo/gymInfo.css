@@ -1,38 +1,49 @@
+:root {
+  --primary-color: rgb(222, 222, 22);
+  --background-color: rgba(0, 0, 0, 0.8);
+  --text-color: white;
+  --highlight-color: #fff000;
+  --font-size-base: 1rem;
+  --font-size-heading: clamp(1.5rem, 4vw, 2.5rem);
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 .info-container {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: var(--background-color);
   padding: 40px 20px;
   margin: 20px auto;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--box-shadow);
   text-align: center;
-  color: white;
+  color: var(--text-color);
   max-width: 600px;
+  min-height: 200px;
 }
 
 .info-container h2 {
-  font-size: 1.8rem;
+  font-size: var(--font-size-heading);
   margin-bottom: 20px;
   font-weight: 600;
-  color: rgb(222, 222, 22);
+  color: var(--primary-color);
 }
 
 .info-container p {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   line-height: 1.6;
   margin: 15px 0;
 }
 
 .info-link {
-  color: rgb(222, 222, 22);
+  color: var(--primary-color);
   background: none;
   border: none;
   cursor: pointer;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   padding-right: 4px;
 }
 
 .info-link:hover {
   text-decoration: underline;
-  color: #fff000;
+  color: var(--highlight-color);
 }

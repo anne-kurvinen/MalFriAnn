@@ -2,7 +2,7 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazyWithPreload } from 'react-lazy-with-preload';
-import NavbarComponent from './components/navbar/NavbarComponent.jsx';
+import NavbarComponent from './components/navbar/navbarComponent.jsx';
 import Footer from './components/footer/footer.jsx';
 import './App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
