@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const compression = require('compression'); // Import compression
 
+
 dotenv.config();
 
 const app = express();
@@ -98,48 +99,63 @@ app.post('/api/members', async (req, res) => {
   }
 });
 
-
-// Get all notes for the logged-in member
-app.get('/api/notes', async (req, res) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-
-  if (!token) {
-    console.log('No token provided');
-    return res.status(401).json({ message: 'Token saknas. Vänligen logga in.' });
-  }
+// Get member by email
+/*
+app.get('/api/members/:email', async (req, res) => {
+  const { email } = req.params;
 
   try {
-    // Query to check if token is valid
-    const result = await pool.query('SELECT member_id FROM tokens WHERE token = $1', [token]);
-    const tokenData = result.rows[0];
+    const result = await pool.query('SELECT email, password FROM members WHERE email = $1', [email]);
+    const user = result.rows[0];
 
-    if (!tokenData) {
-      return res.status(401).json({ message: 'Ogiltig token. Vänligen logga in igen.' });
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'Användare inte hittad' });
     }
-
-    const member_id = tokenData.member_id;
-
-    // Query to get the notes for the member
-    const noteResult = await pool.query(
-      `
-      SELECT 
-        notes.*, 
-        CONCAT(members.firstName, ' ', members.lastName) AS member_name
-      FROM 
-        notes
-      LEFT JOIN 
-        members ON notes.member_id = members.id
-      WHERE 
-        notes.member_id = $1
-      `,
-      [member_id]
-    );
-
-    // Respond with the notes
-    res.json(noteResult.rows);
   } catch (error) {
-    console.error('Error fetching notes:', error);
-    res.status(500).send('Server Error');
+    console.error('Error fetching user:', error);
+    res.status(500).send('Server error');
+  }
+}); */
+
+app.get('/api/members/:email', validateToken, async (req, res) => {
+  const { email } = req.params;
+  const { memberId } = req;  // Extracted from the token
+
+  try {
+    // Fetch member data based on email and token
+    const result = await pool.query(
+      'SELECT * FROM members WHERE email = $1 AND id = $2', 
+      [email, memberId]
+    );
+    const user = result.rows[0];
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: 'Användare inte hittad' });
+    }
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+
+
+// Get all notes
+app.get('/api/notes', async (_request, response) => {
+  try {
+    const result = await pool.query(`
+      SELECT notes.*, members.name AS member_name 
+      FROM notes 
+      LEFT JOIN members ON notes.member_id = members.id
+    `);
+    response.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Server Error');
   }
 });
 
