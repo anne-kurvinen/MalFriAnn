@@ -7,10 +7,10 @@ import Footer from './components/footer/footer.jsx';
 import './App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const Registration = lazyWithPreload(() => import("./pages/Registration.jsx"));
 const OmOss = lazyWithPreload(() => import("./pages/OmOss.jsx"));
 const Inställningar = lazy(() => import("./pages/Inställningar.jsx"));
 const GymInfo = lazyWithPreload(() => import('./components/gymInfo/gymInfo.jsx'));
+const Registration = lazyWithPreload(() => import("./pages/Registration.jsx"));
 const StartPage = lazy(() => import('./pages/StartPage.jsx'));
 const NotesPage = lazy(() => import('./pages/NotesPage.jsx'));
 const MyAccount = lazy(() => import('./Pages/MyAccount.jsx'));

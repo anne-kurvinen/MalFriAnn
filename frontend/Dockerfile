@@ -1,5 +1,5 @@
 # Använd en Node.js-bild som bas
-FROM node
+FROM node:16-alpine
 
 # Ange arbetskatalogen i containern
 WORKDIR /app
