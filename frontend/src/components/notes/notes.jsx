@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'; 
 import NoteModal from '../noteModal/noteModal';
-import './Notes.css';
+import './notes.css';
 
 function Notes() {
   const [isModalOpen, setIsModalOpen] = useState(false);

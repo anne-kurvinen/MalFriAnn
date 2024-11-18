@@ -2,22 +2,21 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazyWithPreload } from 'react-lazy-with-preload';
-import NavbarComponent from './components/navbar/NavbarComponent.jsx';
+import NavbarComponent from './components/navbar/navbarComponent.jsx';
 import Footer from './components/footer/footer.jsx';
 import './App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const OmOss = lazyWithPreload(() => import("./pages/OmOss.jsx"));
-const Inställningar = lazy(() => import("./pages/Inställningar.jsx"));
+const OmOss = lazyWithPreload(() => import("./Pages/OmOss.jsx"));
+const Inställningar = lazy(() => import("./Pages/Inställningar.jsx"));
 const GymInfo = lazyWithPreload(() => import('./components/gymInfo/gymInfo.jsx'));
-const Registration = lazyWithPreload(() => import("./pages/RegistrationPage.jsx"));
-const StartPage = lazy(() => import('./pages/StartPage.jsx'));
-const NotesPage = lazy(() => import('./pages/NotesPage.jsx'));
+const Registration = lazyWithPreload(() => import("./Pages/RegistrationPage.jsx"));
+const StartPage = lazy(() => import('./Pages/StartPage.jsx'));
+const NotesPage = lazy(() => import('./Pages/NotesPage.jsx'));
 const MyAccount = lazy(() => import('./Pages/MyAccount.jsx'));
 
 
 import { useEffect } from 'react';
-import RegistrationPage from './pages/RegistrationPage.jsx';
 
 function App() {
   useEffect(() => {
