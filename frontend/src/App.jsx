@@ -6,7 +6,7 @@ import NavbarComponent from './components/navbar/navbarComponent.jsx';
 import Footer from './components/footer/footer.jsx';
 import './App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import RegistrationPage from './RegistrationPage';
+import RegistrationPage from '.Pages/RegistrationPage';
 
 const OmOss = lazyWithPreload(() => import("./Pages/OmOss.jsx"));
 const Inställningar = lazy(() => import("./Pages/Inställningar.jsx"));
