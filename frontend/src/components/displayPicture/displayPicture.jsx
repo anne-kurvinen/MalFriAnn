@@ -1,6 +1,6 @@
 import image1 from "../../assets/workout-tips.jpg";
 import image2 from "../../assets/notes.jpg";
-import './DisplayPicture.css';
+import './displayPicture.css';
 
 
 function DisplayPicture() {
