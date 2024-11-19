@@ -24,12 +24,12 @@ app.use(express.static(path.join(path.resolve(), 'dist')));
 
 // Definiera en rutt för rot-URL:en
 app.get('/', (req, res) => {
-  res.sendFile(path.join(path.resolve(), 'dist', 'index.html'));
+  res.sendFile(path.join(path.resolve(), 'dist'));
 });
 
 // Definiera en rutt för rot-URL:en
 app.get('/api', (req, res) => {
-  res.sendFile(path.join(path.resolve(), 'dist', 'index.html'));
+  res.sendFile(path.join(path.resolve(), 'dist'));
 });
 
 // Inloggningsruta
