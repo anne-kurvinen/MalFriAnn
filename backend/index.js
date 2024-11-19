@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 // Definiera en rutt för rot-URL:en
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.sendFile(path.join(path.resolve(), 'dist', 'index.html'));
 });
 
