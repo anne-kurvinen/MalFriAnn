@@ -22,16 +22,20 @@ app.use(cors());
 app.use(express.json()); 
 app.use(express.static(path.join(path.resolve(), 'dist')));
 
-// Definiera en rutt för rot-URL:en
+/* // Definiera en rutt för rot-URL:en
 app.get('/', (req, res) => {
   res.sendFile(path.join(path.resolve(), 'dist'));
-});
+}); */
 
-// Definiera en rutt för rot-URL:en
-app.get('/api', (req, res) => {
-  res.sendFile(path.join(path.resolve(), 'dist'));
+app.use(cors({
+  origin: 'http://4.223.94.113:3000',  // Allow your client domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
+ 
+app.get("/", (req, res) => {
+  res.redirect("/api");
 });
-
+ 
 // Inloggningsruta
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
@@ -62,8 +66,6 @@ app.post('/api/login', async (req, res) => {
 });
 
 // Resten av dina rutter...
-
-app.use(express.static(path.join(path.resolve(), 'dist')));
 
 const port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', () => {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const fetchCategories = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/membership-categories');
+    const response = await axios.get('/api/membership-categories');
     return response.data; 
   } catch (error) {
     console.error('Error fetching categories:', error);
