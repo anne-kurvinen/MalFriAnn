@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const createMember = async (memberData) => {
   try {
-    const response = await axios.post('http://localhost:3000/api/members', memberData);
+    const response = await axios.post('/api/members', memberData);
     console.log('New member created:', response.data); 
     return response.data;
   } catch (error) {
