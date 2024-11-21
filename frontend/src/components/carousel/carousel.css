@@ -1,38 +1,15 @@
-/* Carousel.css */
-.carousel-container {
-    width: 100%;
-    height: 130vh;
+.carousel {
     overflow: hidden;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1; 
-}
-
-.images-container {
-    display: flex;
-    width: 300%;
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
-    z-index: 1; 
-
-}
-
-.image {
-    flex: 0 0 100%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1; 
-
-}
-
-.image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    z-index: 1;
+    position: relative;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
 }

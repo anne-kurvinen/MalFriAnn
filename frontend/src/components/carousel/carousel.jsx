@@ -1,13 +1,18 @@
-import image1 from "../../assets/fitness.jpg";
-import image2 from "../../assets/dumbbell.jpg";
-import image3 from "../../assets/work-out.jpg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import './carousel.css';
+
+const Image1 = lazy(() => import("../components/images/Image1"));
+const Image2 = lazy(() => import("../components/images/Image2"));
+const Image3 = lazy(() => import("../components/images/Image3"));
 
 function Carousel() {
     const [count, setCount] = useState(0);
 
-    const images = [image1, image2, image3];
+    const images = [
+        <Image1 key="1" />,
+        <Image2 key="2" />,
+        <Image3 key="3" />
+    ];
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -17,23 +22,20 @@ function Carousel() {
         return () => clearInterval(interval);
     }, [images.length]);
 
-    
     const slideStyle = {
         transform: `translateX(-${count * 100}%)`,
     };
 
     return (
-        <div className="carousel-container">
-            <div className="images-container" style={slideStyle}>
-                <div className="image">
-                    <img src={image1} alt="image 1" />
-                </div>
-                <div className="image">
-                    <img src={image2} alt="image 2" />
-                </div>
-                <div className="image">
-                    <img src={image3} alt="image 3" />
-                </div>
+        <div className="carousel">
+            <div className="carousel-inner" style={slideStyle}>
+                {images.map((image, index) => (
+                    <Suspense fallback={<div>Loading...</div>} key={index}>
+                        <div className="carousel-item">
+                            {image}
+                        </div>
+                    </Suspense>
+                ))}
             </div>
         </div>
     );
