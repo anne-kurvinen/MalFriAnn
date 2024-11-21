@@ -38,7 +38,7 @@ function App() {
           <Route path="/myaccount" element={<MyAccount />} />
         </Routes>
       </Suspense>
-      <Footer />
+      <Footer/>
     </Router>
   );
 }
