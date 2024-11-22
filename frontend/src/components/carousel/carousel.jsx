@@ -5,10 +5,6 @@ const Image1 = lazy(() => import("./assets/images/Image1"));
 const Image2 = lazy(() => import("./assets/images/Image2"));
 const Image3 = lazy(() => import("./assets/images/Image3"));
 
-/* const Image1 = lazy(() => import("./components/images/Image1"));
-const Image2 = lazy(() => import("./components/images/Image2"));
-const Image3 = lazy(() => import("./components/images/Image3")); */
-
 function Carousel() {
     const [count, setCount] = useState(0);
 
