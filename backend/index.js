@@ -24,7 +24,7 @@ app.use(express.static(path.join(path.resolve(), 'dist')));
 
 
 app.use(cors({
-  origin: 'http://52.138.200.233:3000',  // Allow your client domain
+  origin: 'http://4.223.94.113:3000',  // Allow your client domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 
