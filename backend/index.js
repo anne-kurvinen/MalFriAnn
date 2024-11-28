@@ -1,3 +1,4 @@
+// Importera moduler
 const dotenv = require('dotenv');
 const { Pool } = require('pg');
 const express = require('express');
@@ -7,31 +8,35 @@ const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 const compression = require('compression'); // Import compression
 
-
+// Konfigurera miljövariabler
 dotenv.config();
 
+// Skapa Express-applikationen
 const app = express();
 
+// Skapa en pool för PostgreSQL
 const pool = new Pool({
   connectionString: process.env.PGURI,
 });
 
-// Middleware
+// Konfigurera middleware
 app.use(compression()); // Enable gzip compression
-app.use(bodyParser.json());
-app.use(express.json()); 
-app.use(express.static(path.join(path.resolve(), 'dist')));
 
+app.use(bodyParser.json());
+
+app.use(express.json());
 
 app.use(cors({
   origin: 'http://4.223.94.113:3000',  // Allow your client domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
+// Servera statiska filer
+app.use(express.static(path.join(path.resolve(), 'dist')));
 
-/* app.get("/", (req, res) => {
-  res.redirect("/api");
-}); */
-
+// Definiera rutter
+app.get('/', (req, res) => {
+  res.sendFile(path.join(path.resolve(), 'dist', 'index.html'));
+});
 
 // Inloggningsruta
 app.post('/api/login', async (req, res) => {
@@ -346,7 +351,9 @@ app.delete('/api/myaccount', async (req, res) => {
 });
 
 
+
+// Starta servern
 const port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on http://0.0.0.0:${port}`);
 });
