@@ -1,20 +1,5 @@
-:root {
-  --primary-color: rgb(222, 222, 22);
-  --secondary-color: #1c1c1c;
-  --error-color: #d9534f;
-  --background-color: black;
-  --input-background: #0e0e0e;
-  --input-focus-background: #1a1a1a;
-  --button-hover-box-shadow: 2px 4px 8px var(--primary-color);
-  --popup-overlay-background: rgba(0, 0, 0, 0.75);
-  --popup-background: black;
-  --popup-border-color: rgba(255, 255, 255, 0.3);
-  --popup-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  --button-border-radius: 6px;
-}
-
 body {
-  background-color: var(--background-color);
+  background-color: black;
   font-family: Arial, sans-serif;
 }
 
@@ -39,21 +24,21 @@ h1 {
 }
 
 h2 {
-  color: var(--primary-color);
+  color: rgb(222, 222, 22);
 }
 
 .error-message {
-  color: var(--error-color);
+  color: #d9534f;
   font-size: 1rem;
   margin-bottom: 20px;
   text-align: center;
 }
 
 form {
-  background-color: var(--background-color);
+  background-color: black;
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 4px 16px var(--primary-color);
+  box-shadow: 0 4px 16px rgb(222, 222, 22);
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
@@ -67,7 +52,7 @@ form div {
 form label {
   display: block;
   font-weight: 600;
-  color: var(--primary-color);
+  color: rgb(222, 222, 22);
   margin-bottom: 5px;
 }
 
@@ -78,7 +63,7 @@ form input {
   border: 1px solid #ccc;
   font-size: 1rem;
   color: white;
-  background-color: var(--input-background);
+  background-color: #0e0e0e;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
 }
@@ -86,23 +71,23 @@ form input {
 form input:focus {
   border-color: #4d90fe;
   outline: none;
-  background-color: var(--input-focus-background);
+  background-color: #1a1a1a;
 }
 
 .registration-btn {
   width: 100%;
   padding: 12px;
-  background-color: var(--primary-color);
+  background-color: rgb(222, 222, 22);
   color: black;
-  border-radius: var(--button-border-radius);
+  border-radius: 6px;
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: black 0.3s;
 }
 
 .registration-btn:hover {
-  box-shadow: var(--button-hover-box-shadow);
+  box-shadow: 2px 4px 8px rgb(222, 222, 22);
 }
 
 button:disabled {
@@ -121,25 +106,25 @@ button:disabled {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  background-color: var(--popup-overlay-background);
+  background-color: rgba(0, 0, 0, 0.75);
 }
 
 .popup-content,
 .modal-content {
-  background-color: var(--popup-background);
-  color: var(--primary-color);
+  background-color: black;
+  color: rgb(222, 222, 22);
   padding: 20px;
   border-radius: 8px;
   text-align: center;
   max-width: 400px;
   width: 90%;
-  border: 1px solid var(--popup-border-color);
-  box-shadow: var(--popup-box-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .close-popup,
 .close-modal-btn {
-  background-color: var(--primary-color);
+  background-color: rgb(222, 222, 22);
   color: black;
   border: none;
   padding: 10px 20px;

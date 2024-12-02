@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://4.223.94.113:3000',  // Allow your client domain
+  origin: 'http://52.138.200.233:3000',  // Allow your client domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 // Servera statiska filer
