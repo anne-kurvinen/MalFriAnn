@@ -1,8 +1,22 @@
+@font-face {
+  font-family: 'YourFont';
+  src: url('yourfont.woff2') format('woff2');
+  font-display: swap; 
+}
+
 .footer-container {
+  position: absolute;
+    bottom: 0;
     background-color: #111;
     color:#ddd;
-    padding: 40px 20px;
+    padding: 20px;
     text-align: center;
+    min-height: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    visibility: visible;
+    max-width: 1280px;
+    width: 100%;
   }
   
   .footer-content {
@@ -12,6 +26,8 @@
     max-width: 1200px;
     margin: 0 auto;
     gap: 20px;
+    width: 100%;
+    height: 50px;
   }
   
   .footer-brand h2 {
@@ -40,9 +56,14 @@
   }
   
   .footer-social .social-icons a {
-    font-size: 1.4rem;
+ font-size: 1.4rem;
     color: #ddd;
     margin: 0 10px;
+    width: 100%;
+    height: 60px;
+    min-width: 320px;
+    max-width: 1280px;
+    min-height: 50px;
   }
   
   
@@ -63,4 +84,3 @@
       align-items: center;
     }
   }
-  
